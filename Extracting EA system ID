@@ -1,0 +1,13 @@
+def get_system_id(mdr_name, systems_list):
+    for system in systems_list:
+        if mdr_name in system:
+            ea_system_id = extract_ea_system_id(system)
+            return ea_system_id
+return None
+def extract_ea_system_id(system):
+    return ''.join(filter(str.isdigit, system))
+#Example usage:
+mdr_name_input = "MDR"
+systems_list_input = ["System1_MDR_123", "System2_ABC", "System3_MDR_456"]
+ea_system_id_output = get_system_id(mdr_name_input, systems_list_input)
+print(f"EA System ID: {ea_system_id_output}")
