@@ -1,5 +1,7 @@
 import requests
-
+import json
+import src.obtain_a_JWT_token as Jwt
+import receive_list_of_systems_from_ea as Los
 
 def get_system_id(mdr_name, systems):
     # Iterate through the list of systems
@@ -14,6 +16,10 @@ def get_system_id(mdr_name, systems):
 
 
 # Example usage:
+
+systems = Los.get_list_of_systems_from_ea(Jwt.get_jwt_token("","")).json()
+
+
 mdr_name_input = "YourMDRName"
 systems_input = [
     {"mdr_name": "System1MDR", "ea_system_id": "EA123"},
