@@ -29,14 +29,3 @@ def get_jwt_token(username, password):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
-
-
-# Example usage
-username = ''
-password = ''
-jwt_token = get_jwt_token(username, password)
-
-if jwt_token:
-    print(f"JWT Token: {jwt_token}")
-else:
-    print("JWT Token retrieval failed.")
