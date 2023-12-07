@@ -1,7 +1,8 @@
 import requests
 import json
 
-def get_JWT_Token(username, password):
+
+def get_jwt_token(username, password):
     url = "http://win-jtn7m3lf4bq.theagleenforce.local:5000/api/logon/LoginForms"
 
     # Define the headers for the request
@@ -29,10 +30,11 @@ def get_JWT_Token(username, password):
         print(f"An error occurred: {e}")
         return None
 
+
 # Example usage
 username = ''
 password = ''
-jwt_token = get_JWT_Token(username, password)
+jwt_token = get_jwt_token(username, password)
 
 if jwt_token:
     print(f"JWT Token: {jwt_token}")
