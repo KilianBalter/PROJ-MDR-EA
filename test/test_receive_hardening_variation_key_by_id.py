@@ -11,11 +11,11 @@ class TestHardeningVariationKey(unittest.TestCase):
         print("\nEnding Unittest\n")
 
     def test_login(self):
-        token = tokenReceive.get_jwt_token("matthias.laux", "Enf0rce07#")
+        token = tokenReceive.get_jwt_token("", "")
         self.assertIsNot(None, token, "Token not received. Please check VPN, credentials")
 
     def test_system_list(self):
-        token = tokenReceive.get_jwt_token("matthias.laux", "Enf0rce07#")
+        token = tokenReceive.get_jwt_token("", "")
         key = variationKey.get_hardening_variation_key_by_id(token,1)
         self.assertEqual(key, "W11_Essential___1_0", "Variation Key Extraction not working!")
 
