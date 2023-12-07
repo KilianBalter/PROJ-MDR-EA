@@ -1,15 +1,16 @@
 import requests
 
 def get_JWT_Token(uname, pssword):
-    login_url = "https://win-jtn7m3lf4bq.theagleenforce.local/login"
+    login_url = "win-jtn7m3lf4bq.theagleenforce.local/login"
 
     payload = {
-        "uname": uname,
-        "pssword": pssword
+        "uname": username,
+        "pssword": password
     }
 
     try:
-        response = requests.post(login_url, data=payload)
+        # Including verify=False to disable SSL certificate verification
+        response = requests.post(login_url, data=payload, verify=False)
 
         if response.status_code == 200:
             jwt_token = response.json().get("token")
@@ -22,6 +23,7 @@ def get_JWT_Token(uname, pssword):
         print(f"An error occurred: {e}")
         return None
 
+# Example usage
 username = "your_username"
 password = "your_password"
 jwt_token = get_JWT_Token(username, password)
