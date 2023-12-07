@@ -1,20 +1,26 @@
 import requests
+import json
 
-def get_JWT_Token(uname, pssword):
-    login_url = "win-jtn7m3lf4bq.theagleenforce.local/login"
+def get_JWT_Token(username, password):
+    url = "http://win-jtn7m3lf4bq.theagleenforce.local:5000/api/logon/LoginForms"
 
-    payload = {
-        "uname": username,
-        "pssword": password
+    # Define the headers for the request
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    # Define the data for the request
+    data = {
+        'username': username,
+        'password': password
     }
 
     try:
-        # Including verify=False to disable SSL certificate verification
-        response = requests.post(login_url, data=payload, verify=False)
+        # Make the POST request
+        response = requests.post(url, headers=headers, data=json.dumps(data))
 
         if response.status_code == 200:
-            jwt_token = response.json().get("token")
-            return jwt_token
+            return response.json().get('token')
         else:
             print(f"Error {response.status_code}: Failed to retrieve JWT token")
             return None
@@ -24,8 +30,8 @@ def get_JWT_Token(uname, pssword):
         return None
 
 # Example usage
-username = "your_username"
-password = "your_password"
+username = ''
+password = ''
 jwt_token = get_JWT_Token(username, password)
 
 if jwt_token:
