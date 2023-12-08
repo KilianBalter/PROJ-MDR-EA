@@ -1,4 +1,4 @@
-def get_ea_system_ID_from_list_of_systems(server_list, mdr_name):
+def get_ea_system_id_from_list_of_systems(server_list, mdr_name):
     # Check if either server_list or mdr_name is None, and return None if true
     if server_list is None or mdr_name is None:
         return None
