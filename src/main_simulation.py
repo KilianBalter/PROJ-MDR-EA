@@ -1,6 +1,6 @@
 import json
 import logging
-from handle_data import handle_data
+from src.handle_data import handle_data
 
 if __name__ == "__main__":
     try:

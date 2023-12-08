@@ -3,7 +3,7 @@ import unittest
 from src.extract_ea_system_id import get_ea_system_id_from_list_of_systems
 
 
-class TestExtractEASystemID(unittest.TestCase):
+class TestGetEASystemID(unittest.TestCase):
 
     def setUp(self):
         print("\nStarting Unittest.\n")

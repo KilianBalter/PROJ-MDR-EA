@@ -1,4 +1,4 @@
-from eaRestTemplate import ea_rest_call
+from src.ea_rest_template import ea_rest_call
 
 
 # Retrieve all systems accessible in the EA

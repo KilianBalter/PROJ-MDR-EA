@@ -1,8 +1,10 @@
 import unittest
-from src.ticket_037 import *
+import json
+
+from src.get_mdr_name_from_event import get_mdr_sys_name
 
 
-class TestTicket037(unittest.TestCase):
+class TestExtractMDRName(unittest.TestCase):
 
     def setUp(self):
         with open("../assets/Example MDR Events/MDR_Event_1.json") as self.json_file_1, \
@@ -21,12 +23,12 @@ class TestTicket037(unittest.TestCase):
         self.json_file_4.close()
 
     def test_mdr_get_sys_name(self):
-        self.assertEqual("ubuntu-share01", mdr_get_sys_name(self.data_1), "MDR_Event_1")
-        self.assertEqual("ubuntu-share01", mdr_get_sys_name(self.data_2), "MDR_Event_2")
-        self.assertEqual("ubuntu-share01", mdr_get_sys_name(self.data_3), "MDR_Event_3")
-        self.assertEqual("ubuntu-share01", mdr_get_sys_name(self.data_4), "MDR_Event_4")
+        self.assertEqual("ubuntu-share01", get_mdr_sys_name(self.data_1), "MDR_Event_1")
+        self.assertEqual("ubuntu-share01", get_mdr_sys_name(self.data_2), "MDR_Event_2")
+        self.assertEqual("ubuntu-share01", get_mdr_sys_name(self.data_3), "MDR_Event_3")
+        self.assertEqual("ubuntu-share01", get_mdr_sys_name(self.data_4), "MDR_Event_4")
 
-        self.assertNotEquals("ubuntu-share0", mdr_get_sys_name(self.data_1), "MDR_Event_1_2")
+        self.assertNotEquals("ubuntu-share0", get_mdr_sys_name(self.data_1), "MDR_Event_1_2")
 
 
 if __name__ == '__main__':

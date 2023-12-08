@@ -1,7 +1,7 @@
 import requests
 
 
-def ea_rest_call(call, methodtype, token, payload=None):
+def ea_rest_call(call: str, methodtype: str, token: str, payload=None):
     url = 'https://win-jtn7m3lf4bq.theagleenforce.local:5001' + call
     credentials = 'Bearer ' + token
 
@@ -20,5 +20,3 @@ def ea_rest_call(call, methodtype, token, payload=None):
         return data
     else:
         print(f"Error reaching API at {url}: \nCode: {response.status_code} \nResponse: {response.text}")
-
-
