@@ -1,14 +1,14 @@
 import unittest
-from Scripts.ticket_037 import *
+from src.ticket_037 import *
 
 
 class TestTicket037(unittest.TestCase):
 
     def setUp(self):
-        with open("../../Assets/Example MDR Events/MDR_Event_1.json") as self.json_file_1, \
-                open("../../Assets/Example MDR Events/MDR_Event_2.json") as self.json_file_2, \
-                open("../../Assets/Example MDR Events/MDR_Event_3.json") as self.json_file_3, \
-                open("../../Assets/Example MDR Events/MDR_Event_4.json") as self.json_file_4:
+        with open("../assets/Example MDR Events/MDR_Event_1.json") as self.json_file_1, \
+                open("../assets/Example MDR Events/MDR_Event_2.json") as self.json_file_2, \
+                open("../assets/Example MDR Events/MDR_Event_3.json") as self.json_file_3, \
+                open("../assets/Example MDR Events/MDR_Event_4.json") as self.json_file_4:
             self.data_1 = json.load(self.json_file_1)
             self.data_2 = json.load(self.json_file_2)
             self.data_3 = json.load(self.json_file_3)
