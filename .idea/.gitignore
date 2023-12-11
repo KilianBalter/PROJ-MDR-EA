@@ -100,5 +100,8 @@ ENV/
 # Rope project settings
 .ropeproject
 
-#Jypter Notebook
+# Jypter Notebook
 *.ipynb
+
+# Credentials
+src/my_credentials.py

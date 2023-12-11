@@ -1,7 +1,7 @@
 import requests
 
 
-def ea_rest_call(call, methodtype, token, payload=None):
+def ea_rest_call(call: str, methodtype: str, token: str, payload=None):
     url = 'https://win-jtn7m3lf4bq.theagleenforce.local:5001' + call
     credentials = 'Bearer ' + token
 
@@ -13,19 +13,10 @@ def ea_rest_call(call, methodtype, token, payload=None):
     }
 
     # call might only work with verify=False because SSL certificate is untrusted
-    response = requests.get(url, headers=headers, params=payload)
+    response = requests.get(url, headers=headers, params=payload, verify=False)
 
     if response.status_code == 200:
         data = response.json()
-        print(data)
+        return data
     else:
-        print(f"Error: {response.status_code} - {response.text}")
-
-
-testcall = '/api/ibase/domain/2'  # example call
-testmethodtype = 'GET'
-testtoken = ''  # insert token here
-testpayload = ''  # insert your payload here
-
-# call without payload
-ea_rest_call(testcall, testmethodtype, testtoken)
+        print(f"Error reaching API at {url}: \nCode: {response.status_code} \nResponse: {response.text}")

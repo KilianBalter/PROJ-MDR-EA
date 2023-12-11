@@ -2,7 +2,7 @@ import requests
 import json
 
 
-def get_jwt_token(username, password):
+def get_jwt_token(username: str, password: str):
     url = "http://win-jtn7m3lf4bq.theagleenforce.local:5000/api/logon/LoginForms"
 
     # Define the headers for the request

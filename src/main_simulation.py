@@ -1,12 +1,12 @@
 import json
 import logging
-import handle_data
+from src.handle_data import handle_data
 
 if __name__ == "__main__":
     try:
-        with open("../assets/Example MDR Events/MDR_Event_1.json") as json_file:
-            data = json.load(json_file)
-            print(handle_data.handle_data(data))
+        with open("../assets/Test_Event_1.json") as event_file:
+            event = json.load(event_file)
+            handle_data(event)
     except json.decoder.JSONDecodeError:
         logging.error("Error in JSON file. Check for correct JSON syntax!")
     except FileNotFoundError:
