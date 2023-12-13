@@ -1,5 +1,6 @@
 import json
 import logging
+
 from src.handle_data import handle_data
 
 if __name__ == "__main__":

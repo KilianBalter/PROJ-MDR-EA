@@ -13,7 +13,7 @@ def ea_rest_call(call: str, methodtype: str, token: str, payload=None):
     }
 
     # call might only work with verify=False because SSL certificate is untrusted
-    response = requests.get(url, headers=headers, params=payload, verify=False)
+    response = requests.get(url, headers=headers, params=payload)
 
     if response.status_code == 200:
         data = response.json()
