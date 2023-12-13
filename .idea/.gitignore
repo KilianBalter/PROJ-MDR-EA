@@ -1,7 +1,10 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-
+.name
+inspectionProfiles/
+misc.xml
+vcs.xml
 # Editor-based HTTP Client requests
 /httpRequests/
 
