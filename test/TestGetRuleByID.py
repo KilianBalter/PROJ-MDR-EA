@@ -17,7 +17,8 @@ class TestGetRuleByID(unittest.TestCase):
     def test_get_rule_by_id(self):
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
-        print(json.dumps(get_rule_by_instance_name(token, '8081C25334A33DC8F2389B7F')))
+        rule = get_rule_by_instance_name(token, '8081C25334A33DC8F2389B7F')
+        self.assertEqual(55, json.loads(rule)['id'], "Rule not extracted correctly")
 
 
 if __name__ == '__main__':
