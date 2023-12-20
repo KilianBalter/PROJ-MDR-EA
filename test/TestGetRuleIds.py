@@ -23,7 +23,7 @@ class TestGetRuleIDs(unittest.TestCase):
         self.assertEqual(4679, rule_ids[-3], "Id at position 533 does not match expected Id")
         self.assertEqual(4680, rule_ids[-2], "Id at position 534 does not match expected Id")
         self.assertEqual(4681, rule_ids[-1], "Id at position 535 does not match expected Id")
-        self.assertEqual(536, len(rule_ids), "Length of rule_ids array does not match expected value")
+        self.assertEqual(468, len(rule_ids), "Length of rule_ids array does not match expected value")
 
 
 if __name__ == '__main__':

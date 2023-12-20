@@ -23,7 +23,19 @@ def get_rule_ids(token, hardening_id) -> list[int]:
     # Retrieve rule information from the HardeningWizard
     rules = ea_rest_call("/api/v3/hardeningengine/HardeningWizard/rules", 'POST', token, data=wizard_body)
 
+    # Get only excluded rules to filter them out later
+    wizard_body.update({
+        'onlyExcluded': True
+    })
+
+    excluded_rules = ea_rest_call("/api/v3/hardeningengine/HardeningWizard/rules",
+                                  'POST', token, data=wizard_body)
+
     # Filter out only the rule IDs
-    rule_ids = [rule['includedBy'][0]['ruleId'] for rule in rules['items']]
+    all_rule_ids = [rule['includedBy'][0]['ruleId'] for rule in rules['items']]
+    excluded_rule_ids = [rule['includedBy'][0]['ruleId'] for rule in excluded_rules['items']]
+
+    # Filter out excluded rules
+    rule_ids = [rule_id for rule_id in all_rule_ids if rule_id not in excluded_rule_ids]
 
     return rule_ids
