@@ -18,10 +18,11 @@ def get_hardening_id(token, variation_key):
 
     # Search for template corresponding to given variation key
     template_id = None
-    for template in templates:
-        if template['variationKey'] == variation_key:
-            template_id = template['id']
-            break
+    i = 0
+    while template_id is None and i < len(templates):
+        if templates[i]['variationKey'] == variation_key:
+            template_id = templates[i]['id']
+        i += 1
 
     # Get hardening ID from corresponding template
     conf_template = get_hardening_configuration_template_by_id(token, template_id)
