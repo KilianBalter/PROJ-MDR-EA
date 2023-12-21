@@ -15,7 +15,7 @@ class TestGetHardeningID(unittest.TestCase):
     def test_get_hardening_id(self):
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
-        self.assertEqual(get_hardening_id(token, "W11_Essential___1_0"), '1', "Incorrect ID")
+        self.assertEqual(get_hardening_id(token, "W11_Essential___1_0"), 1, "Incorrect ID")
 
 
 if __name__ == '__main__':
