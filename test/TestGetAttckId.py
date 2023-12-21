@@ -25,11 +25,11 @@ class TestExtractAttackId(unittest.TestCase):
 
     def test_extract_attack_id(self):
         self.assertEqual("T1018", get_attack_id(self.data_1), "MDR_Event_1")
-        self.assertEqual("T1018", get_attack_id(self.data_2), "MDR_Event_2")
-        self.assertEqual("T1018", get_attack_id(self.data_3), "MDR_Event_3")
-        self.assertEqual("T1018", get_attack_id(self.data_4), "MDR_Event_4")
+        self.assertEqual("T1552.003", get_attack_id(self.data_2), "MDR_Event_2")
+        self.assertEqual("T1057", get_attack_id(self.data_3), "MDR_Event_3")
+        self.assertEqual("T1548.001", get_attack_id(self.data_4), "MDR_Event_4")
 
-        self.assertNotEquals("T1019", get_attack_id(self.data_1), "MDR_Event_1_2")
+        self.assertNotEqual("T1019", get_attack_id(self.data_1), "MDR_Event_1")
 
 
 if __name__ == '__main__':
