@@ -1,19 +1,25 @@
-import json
-
-from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
-from src.receive_hardening_configuration_by_id import get_hardening_configuration_template_by_id
+import re
 
 
-def receive_instance_name(auth_token: str, code_template: json) -> str:
+def receive_instance_name(code_template: str) -> str | list[str]:
+    """
+    this function receives the code_template and filters it for all xRegistry instance_names
+    :param code_template:
+    :return: empty String if there is no code_template, list of instance_names in the code_template otherwise
+    """
     if not code_template:
         return ''
+    lines = code_template.splitlines()
+    # filtering the lines to only work with the lines that contain xRegistry
+    x_reg = [x for x in lines if "xRegistry" in x]
+    # converting the array into a single string so that
+    x_reg_str = ''.join(x_reg)
+    return find_all_instance_names(x_reg_str)
 
-    str_code_template = str(code_template)
 
-
-if __name__ == "__main__":
-    credentials = get_credentials()
-    token = get_jwt_token(credentials["username"], credentials["password"])
-    code_template = get_hardening_configuration_template_by_id(token, "2")
-    receive_instance_name(token, code_template)
+def find_all_instance_names(text: str) -> list[str]:
+    """
+    this function filters a String for every instance name with a RegEx
+    """
+    pattern = r'[A-Z0-9]{23,24}'
+    return [match.group() for match in re.finditer(pattern, text)]
