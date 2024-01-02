@@ -1,111 +1,111 @@
 {
-    "time": 1700662205643,
-    "type": "events",
-    "~openInTheHive": "https://eagle.server.trovent/shiny/app/thc/?uuid=943de02d-47a1-4470-acb4-55f0a12368a2",
-    "tags": [
-      "seen_memcache_lookup",
-      "seen_memcache_update",
-      "score_lookup_host",
-      "score_lookup_user"
+  "time": 1700662205643,
+  "type": "events",
+  "~openInTheHive": "https://eagle.server.trovent/shiny/app/thc/?uuid=943de02d-47a1-4470-acb4-55f0a12368a2",
+  "tags": [
+    "seen_memcache_lookup",
+    "seen_memcache_update",
+    "score_lookup_host",
+    "score_lookup_user"
+  ],
+  "observables": [
+    null,
+    [
+      "/bin/echo",
+      "ping"
     ],
-    "observables": [
-      null,
-      [
-        "/bin/echo",
-        "ping"
-      ],
-      "fe80::284d:82ff:fe4d:70e2",
-      "root",
-      "0",
-      null
-    ],
-    "message": "Identify remote systems via ping sweep.",
-    "detection": {
-      "tsp": {
-        "module": "Remote System Discovery",
-        "statement": "Remote System Discovery - ping sweep",
-        "node": {
-          "id": "58b3ef3833eb",
-          "name": "eagle_tsp_3.eagle_net"
-        },
-        "active": true
+    "fe80::284d:82ff:fe4d:70e2",
+    "root",
+    "0",
+    null
+  ],
+  "message": "Identify remote systems via ping sweep.",
+  "detection": {
+    "tsp": {
+      "module": "Remote System Discovery",
+      "statement": "Remote System Discovery - ping sweep",
+      "node": {
+        "id": "58b3ef3833eb",
+        "name": "eagle_tsp_3.eagle_net"
       },
-      "tool": "TSP",
-      "first_seen": 1700574295643
+      "active": true
     },
-    "@timestamp": "2023-11-22T14:10:05.695Z",
-    "event": {
-      "confidence": "high",
-      "priority": 6,
-      "action": "T1018 - Remote System Discovery",
-      "impact": "medium",
-      "category": "Attacks",
-      "relevance": "medium",
-      "criticality": "high",
-      "os": [
-        "any"
-      ],
-      "taxonomy": {
-        "type": "attack",
-        "External": {
-          "subject": {
+    "tool": "TSP",
+    "first_seen": 1700574295643
+  },
+  "@timestamp": "2023-11-22T14:10:05.695Z",
+  "event": {
+    "confidence": "high",
+    "priority": 6,
+    "action": "T1018 - Remote System Discovery",
+    "impact": "medium",
+    "category": "Attacks",
+    "relevance": "medium",
+    "criticality": "high",
+    "os": [
+      "any"
+    ],
+    "taxonomy": {
+      "type": "attack",
+      "External": {
+        "subject": {
+          "machine": {
+            "Local": {
+              "host": {
+                "type": "win",
+                "name": "desktop-gslp39t"
+              }
+            }
+          }
+        },
+        "Attack": {
+          "attacker": {
             "machine": {
               "Local": {
                 "host": {
-                  "type": "win",
-                  "name": "desktop-gslp39t"
+                  "ip": "fe80::284d:82ff:fe4d:70e2"
                 }
               }
             }
           },
-          "Attack": {
-            "attacker": {
-              "machine": {
-                "Local": {
-                  "host": {
-                    "ip": "fe80::284d:82ff:fe4d:70e2"
-                  }
-                }
-              }
-            },
-            "action": {
-              "details": {
-                "technique": {
-                  "id": "T1059.007",
-                  "name": "Command and Scripting Interpreter: JavaScript"
-                },
-                "tactic": {
-                  "id": "TA0002",
-                  "name": "Execution"
-                }
-              }
-            },
-            "victim": {
-              "machine": {
-                "Local": {
-                  "host": {
-                    "ip": [
-                      "fe80::284d:82ff:fe4d:70e2"
-                    ],
-                    "name": "ubuntu-share01"
-                  }
-                }
+          "action": {
+            "details": {
+              "technique": {
+                "id": "T1059.007",
+                "name": "Command and Scripting Interpreter: JavaScript"
               },
-              "user": {
-                "details": {
-                  "id": "0",
-                  "name": "root"
+              "tactic": {
+                "id": "TA0002",
+                "name": "Execution"
+              }
+            }
+          },
+          "victim": {
+            "machine": {
+              "Local": {
+                "host": {
+                  "ip": [
+                    "fe80::284d:82ff:fe4d:70e2"
+                  ],
+                  "name": "ubuntu-share01"
                 }
+              }
+            },
+            "user": {
+              "details": {
+                "id": "0",
+                "name": "root"
               }
             }
           }
         }
       }
-    },
-    "@version": "1",
-    "parents": [
-      "4898a255-c93b-4ab1-abc9-019dfa3d8d30"
-    ],
-    "uuid": "943de02d-47a1-4470-acb4-55f0a12368a2",
-    "event_fingerprint": "548e1b8d5586f2bf866221cdf4e014f3"
-  }
+    }
+  },
+  "@version": "1",
+  "parents": [
+    "4898a255-c93b-4ab1-abc9-019dfa3d8d30"
+  ],
+  "uuid": "943de02d-47a1-4470-acb4-55f0a12368a2",
+  "event_fingerprint": "548e1b8d5586f2bf866221cdf4e014f3"
+}
