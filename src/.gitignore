@@ -2,3 +2,4 @@
 __pycache__/
 my_credentials.py
 *.ipynb
+../assets/mapping.json
