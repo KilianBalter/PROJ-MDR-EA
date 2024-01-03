@@ -21,17 +21,19 @@ def handle_data(event):
     except KeyError:
         pass
 
+    # Initialize variables
     token = None
     satisfied_mitigations = None
     unsatisfied_mitigations = None
     error_message = None
 
+    # Process event
     try:
         # Credentials
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
 
-        # Get information from event
+        # Get information from input event
         mdr_name = get_mdr_sys_name(event)
         attack_id = get_attack_id(event)
 
@@ -50,7 +52,7 @@ def handle_data(event):
         hardening_id = get_hardening_id(token, variation_key)
         rules = get_rule_ids(token, hardening_id)
 
-        # Check mapping for which mitigations are satisfied
+        # Check mapping for which mitigations are (un)satisfied
         satisfied_mitigations, unsatisfied_mitigations = check_mapping(attack_id, rules)
 
     # Catch any exception and save its message to include in the output event
