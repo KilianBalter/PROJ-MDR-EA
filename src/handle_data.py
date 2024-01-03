@@ -13,6 +13,14 @@ from add_mitigation_status import add_mitigation_status
 
 
 def handle_data(event):
+    # Check if hardening info field already exists -> event has already been processed
+    try:
+        if event['hardening_info']:
+            return event
+    # If field doesn't exist, continue processing
+    except KeyError:
+        pass
+
     token = None
     satisfied_mitigations = None
     unsatisfied_mitigations = None
