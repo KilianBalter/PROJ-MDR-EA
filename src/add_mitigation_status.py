@@ -1,4 +1,4 @@
-from ea_rest_template import ea_rest_call
+from src.ea_rest_template import ea_rest_call
 
 
 def add_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, error_message=""):
@@ -28,8 +28,10 @@ def add_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitig
 
 
 def add_rule_titles(mitigations, token):
-    updated_rules = {}
+    if not mitigations:
+        return
 
+    updated_rules = {}
     for mitigation in mitigations:
         for rule in mitigations[mitigation]['rules']:
             response = ea_rest_call(f'/api/v3/benchmarkengine/Rules/{rule}', 'GET', token)
