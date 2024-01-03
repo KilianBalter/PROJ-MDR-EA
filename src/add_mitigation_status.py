@@ -1,29 +1,46 @@
 from src.ea_rest_template import ea_rest_call
 
 
-def add_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, error_message=""):
+def update_mitigation_status(token, event, satisfied_mitigations=None, unsatisfied_mitigations=None, error_message=None):
     # If EA reachable, get rule titles and add them as additional info
     if token:
         add_rule_titles(satisfied_mitigations, token)
         add_rule_titles(unsatisfied_mitigations, token)
 
-    # Determine vulnerability status
-    vuln_status = "NOT_VULNERABLE" if satisfied_mitigations else "VULNERABLE"
+    # Reevaluate vulnerability status if satisfied mitigations is being updated
+    vuln_status = None
+    if satisfied_mitigations is not None:
+        vuln_status = "NOT_VULNERABLE" if satisfied_mitigations else "VULNERABLE"
 
-    # Add information to event
-    event.update({
-        "hardening_info": {
-            # Mitigations for which all mapped rules are (not) present on the system
-            # including descriptions for each mitigation and rule
-            "satisfied_mitigations": satisfied_mitigations,
-            "unsatisfied_mitigations": unsatisfied_mitigations,
+    # Gather all fields to be updated
+    updated_fields = {}
 
-            # Estimated vulnerability of the system
-            "vulnerability_status": vuln_status,
+    # Estimated vulnerability of the system
+    if vuln_status is not None:
+        updated_fields.update({
+            "vulnerability_status": vuln_status
+        })
 
-            # Additional information about errors that occurred during lookup
+    # Mitigations for which all mapped rules are (not) present on the system
+    # including descriptions for each mitigation and rule
+    if satisfied_mitigations is not None:
+        updated_fields.update({
+            "satisfied_mitigations": satisfied_mitigations
+        })
+    if unsatisfied_mitigations is not None:
+        updated_fields.update({
+            "unsatisfied_mitigations": unsatisfied_mitigations
+        })
+
+    # Additional information about errors that occurred during lookup
+    if error_message is not None:
+        updated_fields.update({
             "error_message": error_message
-        }
+        })
+
+    # Update fields in event
+    event.update({
+        "hardening_info": updated_fields
     })
 
 
