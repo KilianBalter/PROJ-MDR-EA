@@ -10,13 +10,14 @@ if __name__ == "__main__":
             with open("../assets/Example MDR Events/" + file) as event_file:
                 print(file + ":")
                 json_event = json.load(event_file)
-                sat_mitigations, vuln_status = handle_data(json_event)
+                modified_event = handle_data(json_event)
 
-                print(f"Vulnerability status: {vuln_status}")
-                if sat_mitigations:
-                    print(f"Following mitigations are present: {sat_mitigations}")
-                else:
-                    print("No mitigations are present")
+                print(f"Vulnerability status: {modified_event['hardening_info']['vulnerability_status']}\n")
+                sat_mitigations = modified_event['hardening_info']['satisfied_mitigations']
+                unsat_mitigations = modified_event['hardening_info']['unsatisfied_mitigations']
+                print(f"Following mitigations are present: {sat_mitigations}\n")
+                print(f"Following mitigations are not present: {unsat_mitigations}\n")
+                print(f"Error message: {modified_event['hardening_info']['error_message']}")
                 print("\n\n")
     except json.decoder.JSONDecodeError:
         logging.error("Error in JSON file. Check for correct JSON syntax!")
