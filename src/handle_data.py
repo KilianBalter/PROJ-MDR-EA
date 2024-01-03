@@ -1,3 +1,5 @@
+import json
+
 from src.my_credentials import get_credentials
 from src.obtain_a_JWT_token import get_jwt_token
 from src.get_mdr_name_from_event import get_mdr_sys_name
@@ -8,8 +10,8 @@ from src.receive_hardening_variation_key_by_id import get_hardening_variation_ke
 from src.get_hardening_id import get_hardening_id
 from src.get_rule_ids import get_rule_ids
 from src.get_the_state_of_the_system import get_the_state
-from check_mapping import check_mapping
-from add_mitigation_status import add_mitigation_status
+from src.check_mapping import check_mapping
+from src.update_mitigation_status import update_mitigation_status
 
 
 def handle_data(event):
@@ -17,27 +19,50 @@ def handle_data(event):
     try:
         if event['hardening_info']:
             return event
-    # If field doesn't exist, continue processing
+    # If field doesn't exist, initialize with default values and continue processing
     except KeyError:
-        pass
+        event.update({
+            "hardening_info": {
+                # Mitigations for which all mapped rules are (not) present on the system
+                # including descriptions for each mitigation and rule
+                "satisfied_mitigations": {},
+                "unsatisfied_mitigations": {},
 
+                # Estimated vulnerability of the system
+                "vulnerability_status": "VULNERABLE",
+
+                # Additional information about errors that occurred during lookup
+                "error_message": None
+            }
+        })
+
+    # Get information from input event
+    mdr_name = get_mdr_sys_name(event)
+    attack_id = get_attack_id(event)
+
+    # Check if technique has been mapped and get mitigations
+    with open("../assets/mapping.json", 'r') as f:
+        mapping = json.load(f)
+        if attack_id not in mapping['techniques']:
+            update_mitigation_status(event, error_message=f"Technique {attack_id} has not been mapped")
+            return event
+
+        mitigations = mapping['techniques'][f'{attack_id}']['mitigations']
+
+    # EA
     # Initialize variables
     token = None
     satisfied_mitigations = None
     unsatisfied_mitigations = None
     error_message = None
 
-    # Add all mitigation as unsatisfied by default in case an error is encountered
-
-    # Process event
     try:
         # Credentials
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
 
-        # Get information from input event
-        mdr_name = get_mdr_sys_name(event)
-        attack_id = get_attack_id(event)
+        # Add all mitigations as unsatisfied by default in case an error is encountered during processing
+        update_mitigation_status(event, token=token, unsatisfied_mitigations=mitigations)
 
         # Get EA system ID for this system
         systems = get_all_systems(token)
@@ -46,7 +71,7 @@ def handle_data(event):
         # Check whether system is InState
         state = get_the_state(token, ea_system_id)
         if not state:
-            add_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, "System is not in state")
+            update_mitigation_status(event, error_message="System is not in state")
             return event
 
         # Get all hardening rules applied on this system
@@ -58,14 +83,11 @@ def handle_data(event):
         satisfied_mitigations, unsatisfied_mitigations = check_mapping(attack_id, rules)
 
     # Catch any exception and save its message to include in the output event
-    except LookupError as e:
-        if e.args:
-            error_message = e.args[0]
     except Exception as e:
         if e.args:
             error_message = e.args[0]
 
-    # Add gathered information to input event
-    add_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, error_message)
+    # Update event with gathered information
+    update_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, error_message)
 
     return event
