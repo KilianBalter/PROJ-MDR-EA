@@ -27,6 +27,8 @@ def handle_data(event):
     unsatisfied_mitigations = None
     error_message = None
 
+    # Add all mitigation as unsatisfied by default in case an error is encountered
+
     # Process event
     try:
         # Credentials
