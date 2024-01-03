@@ -27,23 +27,33 @@ def handle_data(event):
     error_message = None
 
     try:
+        # Credentials
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
+
+        # Get information from event
         mdr_name = get_mdr_sys_name(event)
         attack_id = get_attack_id(event)
+
+        # Get EA system ID for this system
         systems = get_all_systems(token)
         ea_system_id = get_ea_system_id_from_list_of_systems(systems, mdr_name)
 
-        # state = get_the_state(token, ea_system_id)
-        # if not state:
-        #     add_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, "System is not in state")
-        #     return event
+        # Check whether system is InState
+        state = get_the_state(token, ea_system_id)
+        if not state:
+            add_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, "System is not in state")
+            return event
 
+        # Get all hardening rules applied on this system
         variation_key = get_hardening_variation_key_by_id(token, ea_system_id)
         hardening_id = get_hardening_id(token, variation_key)
         rules = get_rule_ids(token, hardening_id)
+
+        # Check mapping for which mitigations are satisfied
         satisfied_mitigations, unsatisfied_mitigations = check_mapping(attack_id, rules)
 
+    # Catch any exception and save its message to include in the output event
     except LookupError as e:
         if e.args:
             error_message = e.args[0]
@@ -51,6 +61,7 @@ def handle_data(event):
         if e.args:
             error_message = e.args[0]
 
+    # Add gathered information to input event
     add_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, error_message)
 
     return event
