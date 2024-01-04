@@ -3,7 +3,7 @@ import json
 
 from src.my_credentials import get_credentials
 from src.obtain_a_JWT_token import get_jwt_token
-from src.add_mitigation_status import add_mitigation_status
+from src.update_mitigation_status import update_mitigation_status
 
 
 class TestAddMitigationStatus(unittest.TestCase):
@@ -36,7 +36,6 @@ class TestAddMitigationStatus(unittest.TestCase):
             },
             "unsatisfied_mitigations": {},
             "vulnerability_status": "NOT_VULNERABLE",
-            "error_message": ''
         }
 
         satisfied_mitigations = {
@@ -47,7 +46,7 @@ class TestAddMitigationStatus(unittest.TestCase):
         }
         unsatisfied_mitigations = {}
 
-        add_mitigation_status(token, self.data_1, satisfied_mitigations, unsatisfied_mitigations)
+        update_mitigation_status(self.data_1, token, satisfied_mitigations, unsatisfied_mitigations)
 
         rules = self.data_1['hardening_info']['satisfied_mitigations']['M1040']['rules']
         self.assertTrue(all(rules[rule]['title'] for rule in rules), "Missing titles")
