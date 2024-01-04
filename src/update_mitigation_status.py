@@ -1,7 +1,7 @@
 from src.ea_rest_template import ea_rest_call
 
 
-def update_mitigation_status(token, event, satisfied_mitigations=None, unsatisfied_mitigations=None, error_message=None):
+def update_mitigation_status(event, token, satisfied_mitigations=None, unsatisfied_mitigations=None, error_message=None):
     # If EA reachable, get rule titles and add them as additional info
     if token:
         add_rule_titles(satisfied_mitigations, token)
