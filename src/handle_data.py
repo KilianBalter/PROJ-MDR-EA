@@ -16,11 +16,10 @@ from src.update_mitigation_status import update_mitigation_status
 
 def handle_data(event):
     # Check if hardening info field already exists -> event has already been processed
-    try:
-        if event['hardening_info']:
-            return event
+    if 'hardening_info' in event.keys():
+        return event
     # If field doesn't exist, initialize with default values and continue processing
-    except KeyError:
+    else:
         event.update({
             "hardening_info": {
                 # Mitigations for which all mapped rules are (not) present on the system
@@ -36,11 +35,8 @@ def handle_data(event):
             }
         })
 
-    # Get information from input event
-    mdr_name = get_mdr_sys_name(event)
-    attack_id = get_attack_id(event)
-
     # Check if technique has been mapped and get mitigations
+    attack_id = get_attack_id(event)
     with open("../assets/mapping.json", 'r') as f:
         mapping = json.load(f)
         if attack_id not in mapping['techniques']:
@@ -65,6 +61,7 @@ def handle_data(event):
         update_mitigation_status(event, token=token, unsatisfied_mitigations=mitigations)
 
         # Get EA system ID for this system
+        mdr_name = get_mdr_sys_name(event)
         systems = get_all_systems(token)
         ea_system_id = get_ea_system_id_from_list_of_systems(systems, mdr_name)
 
