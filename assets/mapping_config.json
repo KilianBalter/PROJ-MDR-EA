@@ -1,0 +1,24 @@
+{
+  "T1059.007": [
+    {
+      "mitigationId": "M1040",
+      "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Visual Basic scripts from executing potentially malicious downloaded content",
+      "rules": [
+        {
+          "ruleId": 1608
+        }
+      ]
+    }
+  ],
+  "T1059.005": [
+    {
+      "mitigationId": "M1040",
+      "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent JavaScript scripts from executing potentially malicious downloaded content",
+      "rules": [
+        {
+          "ruleId": 1608
+        }
+      ]
+    }
+  ]
+}
