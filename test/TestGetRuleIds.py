@@ -7,7 +7,6 @@ from src.get_rule_ids import get_rule_ids
 
 class TestGetRuleIDs(unittest.TestCase):
     def setUp(self):
-        self.credentials = get_credentials()
         print("\nStarting Unittest.\n")
 
     def tearDown(self):
