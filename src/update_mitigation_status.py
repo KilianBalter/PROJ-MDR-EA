@@ -8,7 +8,7 @@ def update_mitigation_status(event, token, satisfied_mitigations=None, unsatisfi
             add_rule_titles(satisfied_mitigations, token)
             add_rule_titles(unsatisfied_mitigations, token)
         # Titles serve only as additional information. If anything goes wrong due to EA, ignore and just update fields
-        except:
+        except Exception:
             pass
 
     # Reevaluate vulnerability status if satisfied mitigations is being updated
