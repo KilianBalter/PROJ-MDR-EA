@@ -4,8 +4,12 @@ from src.ea_rest_template import ea_rest_call
 def update_mitigation_status(event, token, satisfied_mitigations=None, unsatisfied_mitigations=None, error_message=None):
     # If EA reachable, get rule titles and add them as additional info
     if token:
-        add_rule_titles(satisfied_mitigations, token)
-        add_rule_titles(unsatisfied_mitigations, token)
+        try:
+            add_rule_titles(satisfied_mitigations, token)
+            add_rule_titles(unsatisfied_mitigations, token)
+        # Titles serve only as additional information. If anything goes wrong due to EA, ignore and just update fields
+        except:
+            pass
 
     # Reevaluate vulnerability status if satisfied mitigations is being updated
     vuln_status = None
