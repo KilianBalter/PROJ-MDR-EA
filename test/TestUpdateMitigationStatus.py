@@ -23,6 +23,22 @@ class TestAddMitigationStatus(unittest.TestCase):
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
 
+        # Default initialization
+        self.data_1.update({
+            "hardening_info": {
+                # Mitigations for which all mapped rules are (not) present on the system
+                # including descriptions for each mitigation and rule
+                "satisfied_mitigations": {},
+                "unsatisfied_mitigations": {},
+
+                # Estimated vulnerability of the system
+                "vulnerability_status": "VULNERABLE",
+
+                # Additional information about errors that occurred during lookup
+                "error_message": None
+            }
+        })
+
         hardening_info = {
             "satisfied_mitigations": {
                 "M1040": {
@@ -36,6 +52,7 @@ class TestAddMitigationStatus(unittest.TestCase):
             },
             "unsatisfied_mitigations": {},
             "vulnerability_status": "NOT_VULNERABLE",
+            "error_message": None
         }
 
         satisfied_mitigations = {
