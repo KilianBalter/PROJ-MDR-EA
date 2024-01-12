@@ -14,7 +14,10 @@ def get_hardening_id(token, variation_key):
     """
 
     # Get all configuration templates
-    templates = ea_rest_call('/api/dtools/DscApplicationConfigTemplate', 'GET', token)
+    try:
+        templates = ea_rest_call('/api/dtools/DscApplicationConfigTemplate', 'GET', token)
+    except Exception:
+        raise Exception("error while retrieving dscapplicationconfigtemplate")
 
     # Search for template corresponding to given variation key
     template_id = None
@@ -25,7 +28,10 @@ def get_hardening_id(token, variation_key):
         i += 1
 
     # Get hardening ID from corresponding template
-    conf_template = get_hardening_configuration_template_by_id(token, template_id)
+    try:
+        conf_template = get_hardening_configuration_template_by_id(token, template_id)
+    except Exception:
+        raise Exception("error while retrieving id from dscapplicationconfigtemplate")
     data_template = json.loads(conf_template['dataTemplate'])  # json.loads() because the dataTemplate field is a string
     hardening_id = data_template['hardeningId']
 
