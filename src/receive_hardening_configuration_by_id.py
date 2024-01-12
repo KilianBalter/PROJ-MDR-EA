@@ -4,4 +4,7 @@ import requests
 
 
 def get_hardening_configuration_template_by_id(token, _id):
-    return ea_rest_call(f"/api/dtools/DscApplicationConfigTemplate/{_id}", 'GET', token)
+    try:
+        return ea_rest_call(f"/api/dtools/DscApplicationConfigTemplate/{_id}", 'GET', token)
+    except Exception:
+        raise Exception("error in get_hardening_configuration_template_by_id")
