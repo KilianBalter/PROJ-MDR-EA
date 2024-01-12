@@ -35,24 +35,24 @@ def handle_data(event):
             }
         })
 
-    # Check if technique has been mapped and get mitigations
-    attack_id = get_attack_id(event)
-    with open("../assets/mapping.json", 'r') as f:
-        mapping = json.load(f)
-        if attack_id not in mapping['techniques']:
-            update_mitigation_status(event, error_message=f"Technique {attack_id} has not been mapped")
-            return event
-
-        mitigations = mapping['techniques'][f'{attack_id}']['mitigations']
-
-    # EA
-    # Initialize variables
-    token = None
-    satisfied_mitigations = None
-    unsatisfied_mitigations = None
-    error_message = None
-
     try:
+        # Check if technique has been mapped and get mitigations
+        attack_id = get_attack_id(event)
+        with open("../assets/mapping.json", 'r') as f:
+            mapping = json.load(f)
+            if attack_id not in mapping['techniques']:
+                update_mitigation_status(event, error_message=f"Technique {attack_id} has not been mapped")
+                return event
+
+            mitigations = mapping['techniques'][f'{attack_id}']['mitigations']
+
+        # EA
+        # Initialize variables
+        token = None
+        satisfied_mitigations = None
+        unsatisfied_mitigations = None
+        error_message = None
+
         # Credentials
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
