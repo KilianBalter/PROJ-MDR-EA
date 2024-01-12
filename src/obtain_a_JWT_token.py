@@ -16,16 +16,10 @@ def get_jwt_token(username: str, password: str):
         'password': password
     }
 
-    try:
-        # Make the POST request
-        response = requests.post(url, headers=headers, data=json.dumps(data))
+    # Make the POST request
+    response = requests.post(url, headers=headers, data=json.dumps(data))
 
-        if response.status_code == 200:
-            return response.json().get('token')
-        else:
-            print(f"Error {response.status_code}: Failed to retrieve JWT token")
-            return None
+    if response.status_code != 200:
+        response.raise_for_status()
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return None
+    return response.json().get('token')
