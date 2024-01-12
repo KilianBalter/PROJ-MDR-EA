@@ -7,4 +7,5 @@ def get_attack_id(mdr_event) -> str:  # Returns the attackId from the MDR event
         attack_id = mdr_event['event']['taxonomy']['External']['Attack']['action']['details']['technique']['id']
     except KeyError:
         logging.error("Error in key path. Compare path in the JSON file and in variable declaration!")
+        raise
     return attack_id
