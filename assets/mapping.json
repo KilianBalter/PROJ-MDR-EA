@@ -145,6 +145,24 @@
           ]
         }
       }
+    },
+    "T1040": {
+      "mitigations": {
+        "M1041": {
+          "description": "Ensure that all wired and/or wireless traffic is encrypted appropriately using authentification protocols",
+          "rules": [
+            1995,
+	    1996
+          ]
+        },
+	"M1030": {
+          "description": "Deny direct access of broadcasts and multicast sniffing",
+          "rules": [
+            4338,
+            4409
+          ]
+        }
+      }
     }
   }
 }
