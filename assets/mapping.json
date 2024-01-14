@@ -145,6 +145,16 @@
           ]
         }
       }
+    },
+    "T1566": {
+      "mitigations": {
+        "M1049": {
+          "description": "Anti-virus can automatically quarantine suspicious files.",
+          "rules": [
+            4312
+          ]
+        }
+      }
     }
   }
 }
