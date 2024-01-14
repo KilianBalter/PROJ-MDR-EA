@@ -158,8 +158,8 @@
 	"M1030": {
           "description": "Deny direct access of broadcasts and multicast sniffing",
           "rules": [
-            4338,
-            4409
+            4432,
+            4453
           ]
         }
       }
