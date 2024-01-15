@@ -9,7 +9,7 @@
             1996
           ]
         },
-	    "M1030": {
+        "M1030": {
           "description": "Deny direct access of broadcasts and multicast sniffing",
           "rules": [
             4432,
