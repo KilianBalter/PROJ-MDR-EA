@@ -25,24 +25,25 @@ def update_mitigation_status(event, token=None, satisfied_mitigations=None, part
         except Exception:
             pass
 
-    # Reevaluate vulnerability status if satisfied mitigations is being updated
-    vuln_status = None
-    if satisfied_mitigations is not None:
-        vuln_status = "NOT_VULNERABLE" if satisfied_mitigations else "VULNERABLE"
-
     # Update fields
-    # Estimated vulnerability of the system
-    if vuln_status is not None:
-        event["hardening_info"]['vulnerability_status'] = vuln_status
-
     # Mitigations for which all/some/none mapped rules are present on the system,
     # including descriptions for each mitigation and rule
-    if satisfied_mitigations is not None:
-        event["hardening_info"]['satisfied_mitigations'] = satisfied_mitigations
-    if partial_mitigations is not None:
-        event["hardening_info"]['partial_mitigations'] = partial_mitigations
-    if unsatisfied_mitigations is not None:
-        event["hardening_info"]['unsatisfied_mitigations'] = unsatisfied_mitigations
+    if _satisfied_mitigations is not None:
+        event["hardening_info"]['satisfied_mitigations'] = _satisfied_mitigations
+    if _partial_mitigations is not None:
+        event["hardening_info"]['partial_mitigations'] = _partial_mitigations
+    if _unsatisfied_mitigations is not None:
+        event["hardening_info"]['unsatisfied_mitigations'] = _unsatisfied_mitigations
+
+    # Reevaluate vulnerability status
+    if event["hardening_info"]['satisfied_mitigations']:
+        vuln_status = "NOT_VULNERABLE"
+    elif event["hardening_info"]['partial_mitigations']:
+        vuln_status = "PARTIALLY_VULNERABLE"
+    else:
+        vuln_status = "VULNERABLE"
+    # Estimated vulnerability of the system
+    event["hardening_info"]['vulnerability_status'] = vuln_status
 
     # Additional information about errors that occurred during lookup
     if error_message is not None:
