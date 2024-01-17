@@ -1,11 +1,19 @@
 from src.ea_rest_template import ea_rest_call
 
 
-def update_mitigation_status(event, token=None, _satisfied_mitigations=None, _partial_mitigations=None,
-                             _unsatisfied_mitigations=None, error_message=None):
-    satisfied_mitigations = _satisfied_mitigations.copy()
-    partial_mitigations = _partial_mitigations.copy()
-    unsatisfied_mitigations = _unsatisfied_mitigations.copy()
+def update_mitigation_status(event, token=None, satisfied_mitigations=None, partial_mitigations=None,
+                             unsatisfied_mitigations=None, error_message=None):
+    _satisfied_mitigations = None
+    _partial_mitigations = None
+    _unsatisfied_mitigations = None
+
+    # Copy dicts
+    if satisfied_mitigations is not None:
+        _satisfied_mitigations = satisfied_mitigations.copy()
+    if partial_mitigations is not None:
+        _partial_mitigations = partial_mitigations.copy()
+    if unsatisfied_mitigations is not None:
+        _unsatisfied_mitigations = unsatisfied_mitigations.copy()
 
     # If EA reachable, get rule titles and add them as additional info
     if token:
