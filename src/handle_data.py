@@ -25,6 +25,7 @@ def handle_data(event):
                 # Mitigations for which all mapped rules are (not) present on the system
                 # including descriptions for each mitigation and rule
                 "satisfied_mitigations": {},
+                "partial_mitigations": {},
                 "unsatisfied_mitigations": {},
 
                 # Estimated vulnerability of the system
@@ -49,6 +50,7 @@ def handle_data(event):
     # Initialize variables
     token = None
     satisfied_mitigations = None
+    partial_mitigations = None
     unsatisfied_mitigations = None
     error_message = None
 
@@ -66,10 +68,10 @@ def handle_data(event):
         ea_system_id = get_ea_system_id_from_list_of_systems(systems, mdr_name)
 
         # Check whether system is InState
-        state = get_the_state(token, ea_system_id)
-        if not state:
-            update_mitigation_status(event, error_message="System is not in state")
-            return event
+        # state = get_the_state(token, ea_system_id)
+        # if not state:
+        #     update_mitigation_status(event, error_message="System is not in state")
+        #     return event
 
         # Get all hardening rules applied on this system
         variation_key = get_hardening_variation_key_by_id(token, ea_system_id)
@@ -77,7 +79,7 @@ def handle_data(event):
         rules = get_rule_ids(token, hardening_id)
 
         # Check mapping for which mitigations are (un)satisfied
-        satisfied_mitigations, unsatisfied_mitigations = check_mapping(attack_id, rules)
+        satisfied_mitigations, partial_mitigations, unsatisfied_mitigations = check_mapping(mitigations, rules)
 
     # Catch any exception and save its message to include in the output event
     except Exception as e:
@@ -85,6 +87,7 @@ def handle_data(event):
             error_message = e.args[0]
 
     # Update event with gathered information
-    update_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, error_message)
+    update_mitigation_status(event, token, satisfied_mitigations, partial_mitigations, unsatisfied_mitigations,
+                             error_message)
 
     return event
