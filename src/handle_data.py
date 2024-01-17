@@ -68,10 +68,10 @@ def handle_data(event):
         ea_system_id = get_ea_system_id_from_list_of_systems(systems, mdr_name)
 
         # Check whether system is InState
-        # state = get_the_state(token, ea_system_id)
-        # if not state:
-        #     update_mitigation_status(event, error_message="System is not in state")
-        #     return event
+        state = get_the_state(token, ea_system_id)
+        if not state:
+            update_mitigation_status(event, error_message="System is not in state")
+            return event
 
         # Get all hardening rules applied on this system
         variation_key = get_hardening_variation_key_by_id(token, ea_system_id)
