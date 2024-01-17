@@ -1,5 +1,23 @@
 {
   "techniques": {
+    "T1040": {
+      "mitigations": {
+        "M1041": {
+          "description": "Ensure that all wired and/or wireless traffic is encrypted appropriately using authentification protocols",
+          "rules": [
+            1995,
+            1996
+          ]
+        },
+        "M1030": {
+          "description": "Deny direct access of broadcasts and multicast sniffing",
+          "rules": [
+            4432,
+            4453
+          ]
+        }
+      }
+    },
     "T1059.007": {
       "mitigations": {
         "M1040": {
@@ -142,6 +160,16 @@
             1604,
             1605,
             1612
+          ]
+        }
+      }
+    },
+    "T1566": {
+      "mitigations": {
+        "M1049": {
+          "description": "Anti-virus can automatically quarantine suspicious files.",
+          "rules": [
+            4312
           ]
         }
       }

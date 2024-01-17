@@ -77,7 +77,7 @@ def handle_data(event):
         rules = get_rule_ids(token, hardening_id)
 
         # Check mapping for which mitigations are (un)satisfied
-        satisfied_mitigations, unsatisfied_mitigations = check_mapping(attack_id, rules)
+        satisfied_mitigations, unsatisfied_mitigations = check_mapping(mitigations, rules)
 
     # Catch any exception and save its message to include in the output event
     except Exception as e:
@@ -85,6 +85,6 @@ def handle_data(event):
             error_message = e.args[0]
 
     # Update event with gathered information
-    update_mitigation_status(token, event, satisfied_mitigations, unsatisfied_mitigations, error_message)
+    update_mitigation_status(event, token, satisfied_mitigations, unsatisfied_mitigations, error_message)
 
     return event
