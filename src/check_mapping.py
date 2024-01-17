@@ -1,6 +1,14 @@
-import json
-
-
+# Logic for whether a mitigation is considered satisfied, partial, or unsatisfied
+# "Partial" refers to the value of the "partial" field in the mapping for that mitigation
+# -------------------------------------------
+# | Partial | Rules present | Result        |
+# |  False  |      ALL      |  SATISFIED    |
+# |  False  |      SOME     |  PARTIAL      |
+# |  False  |      NONE     |  UNSATISFIED  |
+# |  True   |      ALL      |  PARTIAL      |
+# |  True   |      SOME     |  PARTIAL      |
+# |  True   |      NONE     |  UNSATISFIED  |
+# -------------------------------------------
 def check_mapping(mitigations, rule_ids):
     satisfied_mitigations = {}
     partial_mitigations = {}
