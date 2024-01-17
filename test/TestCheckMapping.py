@@ -21,15 +21,15 @@ class TestCheckMapping(unittest.TestCase):
             4275, 4276, 4277, 4278, 4279, 4280, 4281,
         ]
 
-        # -------------------------------------
-        # | Partial | Present | Result        |
-        # |  False  |  ALL    |  SATISFIED    |
-        # |  False  |  SOME   |  PARTIAL      |
-        # |  False  |  NONE   |  UNSATISFIED  |
-        # |  True   |  ALL    |  PARTIAL      |
-        # |  True   |  SOME   |  PARTIAL      |
-        # |  True   |  NONE   |  UNSATISFIED  |
-        # -------------------------------------
+        # -------------------------------------------
+        # | Partial | Rules present | Result        |
+        # |  False  |      ALL      |  SATISFIED    |
+        # |  False  |      SOME     |  PARTIAL      |
+        # |  False  |      NONE     |  UNSATISFIED  |
+        # |  True   |      ALL      |  PARTIAL      |
+        # |  True   |      SOME     |  PARTIAL      |
+        # |  True   |      NONE     |  UNSATISFIED  |
+        # -------------------------------------------
         mitigations = {
             # Partial False, ALL rules present
             "M1040": {
