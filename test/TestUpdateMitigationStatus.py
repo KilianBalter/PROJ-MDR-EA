@@ -19,7 +19,7 @@ class TestAddMitigationStatus(unittest.TestCase):
         self.json_file_1.close()
         print("\nEnding Unittest\n")
 
-    def test_add_mitigation_status(self):
+    def test_update_mitigation_status(self):
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
 
@@ -29,6 +29,7 @@ class TestAddMitigationStatus(unittest.TestCase):
                 # Mitigations for which all mapped rules are (not) present on the system
                 # including descriptions for each mitigation and rule
                 "satisfied_mitigations": {},
+                "partial_mitigations": {},
                 "unsatisfied_mitigations": {},
 
                 # Estimated vulnerability of the system
@@ -50,6 +51,23 @@ class TestAddMitigationStatus(unittest.TestCase):
                     }
                 }
             },
+            "partial_mitigations": {
+                "M1041": {
+                    "description": "Test",
+                    "rules": {
+                        'present': {
+                            1608: {
+                                "title": "(L1) Ensure 'Configure Attack Surface Reduction rules: Block JavaScript or VBScript from launching downloaded executable content'"
+                            }
+                        },
+                        'not_present': {
+                            1608: {
+                                "title": "(L1) Ensure 'Configure Attack Surface Reduction rules: Block JavaScript or VBScript from launching downloaded executable content'"
+                            }
+                        }
+                    }
+                }
+            },
             "unsatisfied_mitigations": {},
             "vulnerability_status": "NOT_VULNERABLE",
             "error_message": None
@@ -61,9 +79,18 @@ class TestAddMitigationStatus(unittest.TestCase):
                 'rules': [1608]
             }
         }
+        partial_mitigations = {
+            'M1041': {
+                "description": "Test",
+                'rules': {
+                    'present': [1608],
+                    'not_present': [1608]
+                }
+            }
+        }
         unsatisfied_mitigations = {}
 
-        update_mitigation_status(self.data_1, token, satisfied_mitigations, unsatisfied_mitigations)
+        update_mitigation_status(self.data_1, token, satisfied_mitigations, partial_mitigations, unsatisfied_mitigations)
 
         rules = self.data_1['hardening_info']['satisfied_mitigations']['M1040']['rules']
         self.assertTrue(all(rules[rule]['title'] for rule in rules), "Missing titles")
