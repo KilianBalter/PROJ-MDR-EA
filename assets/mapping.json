@@ -164,6 +164,28 @@
         }
       }
     },
+    "T1557.001": {
+      "mitigations": {
+        "M1042": {
+          "partial": true,
+          "description": "Disable LLMNR and NetBIOS in local computer security settings or by group policy if they are not needed within an environment.",
+          "rules": [
+            4432,
+            4453
+          ]
+        },
+        "M1037": {
+          "partial": true,
+          "description": "Use host-based security software to block LLMNR/NetBIOS traffic. Enabling SMB Signing can stop NTLMv2 relay attacks.",
+          "rules": [
+            4613,
+            4614,
+            4617,
+            4618
+          ]
+        }
+      }
+    },
     "T1566": {
       "mitigations": {
         "M1049": {
