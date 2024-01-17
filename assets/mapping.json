@@ -59,16 +59,6 @@
           "rules": [
             1606
           ]
-        },
-        "M1054": {
-          "description": "For the Office Test method, create the Registry key used to execute it and set the permissions to \"Read Control\" to prevent easy access to the key without administrator permissions or requiring Privilege Escalation.",
-          "rules": [
-          ]
-        },
-        "M1051": {
-          "description": "For the Outlook methods, blocking macros may be ineffective as the Visual Basic engine used for these features is separate from the macro scripting engine. Microsoft has released patches to try to address each issue. Ensure KB3191938 which blocks Outlook Visual Basic and displays a malicious code warning, KB4011091 which disables custom forms by default, and KB4011162 which removes the legacy Home Page feature, are applied to systems.",
-          "rules": [
-          ]
         }
       }
     },
@@ -102,29 +92,19 @@
             1605,
             1612
           ]
-        },
-        "M1054": {
-          "description": "For the Office Test method, create the Registry key used to execute it and set the permissions to \"Read Control\" to prevent easy access to the key without administrator permissions or requiring Privilege Escalation.",
-          "rules": [
-          ]
         }
-      },
-      "T1137.03": {
-        "mitigations": {
-          "M1040": {
-            "partial": false,
-            "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
-            "rules": [
-              1604,
-              1605,
-              1612
-            ]
-          },
-          "M1051": {
-            "description": "For the Outlook methods, blocking macros may be ineffective as the Visual Basic engine used for these features is separate from the macro scripting engine. Microsoft has released patches to try to address each issue. Ensure KB3191938 which blocks Outlook Visual Basic and displays a malicious code warning, KB4011091 which disables custom forms by default, and KB4011162 which removes the legacy Home Page feature, are applied to systems.",
-            "rules": [
-            ]
-          }
+      }
+    },
+    "T1137.03": {
+      "mitigations": {
+        "M1040": {
+          "partial": false,
+          "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
+          "rules": [
+            1604,
+            1605,
+            1612
+          ]
         }
       }
     },
@@ -138,11 +118,6 @@
             1605,
             1612
           ]
-        },
-        "M1051": {
-          "description": "For the Outlook methods, blocking macros may be ineffective as the Visual Basic engine used for these features is separate from the macro scripting engine. Microsoft has released patches to try to address each issue. Ensure KB3191938 which blocks Outlook Visual Basic and displays a malicious code warning, KB4011091 which disables custom forms by default, and KB4011162 which removes the legacy Home Page feature, are applied to systems.",
-          "rules": [
-          ]
         }
       }
     },
@@ -155,11 +130,6 @@
             1604,
             1605,
             1612
-          ]
-        },
-        "M1051": {
-          "description": "For the Outlook methods, blocking macros may be ineffective as the Visual Basic engine used for these features is separate from the macro scripting engine. Microsoft has released patches to try to address each issue. Ensure KB3191938 which blocks Outlook Visual Basic and displays a malicious code warning, KB4011091 which disables custom forms by default, and KB4011162 which removes the legacy Home Page feature, are applied to systems.",
-          "rules": [
           ]
         }
       }
