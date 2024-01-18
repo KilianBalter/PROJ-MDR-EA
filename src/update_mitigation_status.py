@@ -78,6 +78,7 @@ def add_rule_titles(mitigations, partial, token):
     except Exception:
         raise Exception("Error while adding rule titles. Make sure microservice BenchmarkEngine is running.")
 
+
 def get_rule_title(rule, token):
     response = ea_rest_call(f'/api/v3/benchmarkengine/Rules/{rule}', 'GET', token)
     return response['title']
