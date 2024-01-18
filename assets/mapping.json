@@ -3,6 +3,7 @@
     "T1040": {
       "mitigations": {
         "M1041": {
+          "partial": true,
           "description": "Ensure that all wired and/or wireless traffic is encrypted appropriately using authentification protocols",
           "rules": [
             1995,
@@ -10,6 +11,7 @@
           ]
         },
         "M1030": {
+          "partial": true,
           "description": "Deny direct access of broadcasts and multicast sniffing",
           "rules": [
             4432,
@@ -21,6 +23,7 @@
     "T1059.007": {
       "mitigations": {
         "M1040": {
+          "partial": false,
           "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Visual Basic and JavaScript scripts from executing potentially malicious downloaded content.",
           "rules": [
             1608
@@ -31,6 +34,7 @@
     "T1059.005": {
       "mitigations": {
         "M1040": {
+          "partial": false,
           "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Visual Basic and JavaScript scripts from executing potentially malicious downloaded content.",
           "rules": [
             1608
@@ -41,6 +45,7 @@
     "T1137": {
       "mitigations": {
         "M1040": {
+          "partial": false,
           "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
           "rules": [
             1604,
@@ -49,19 +54,10 @@
           ]
         },
         "M1042": {
+          "partial": true,
           "description": "Follow Office macro security best practices suitable for your environment. Disable Office VBA macros from executing.\n\nDisable Office add-ins. If they are required, follow best practices for securing them by requiring them to be signed and disabling user notification for allowing add-ins. For some add-ins types (WLL, VBA) additional mitigation is likely required as disabling add-ins in the Office Trust Center does not disable WLL nor does it prevent VBA code from executing.",
           "rules": [
             1606
-          ]
-        },
-        "M1054": {
-          "description": "For the Office Test method, create the Registry key used to execute it and set the permissions to \"Read Control\" to prevent easy access to the key without administrator permissions or requiring Privilege Escalation.",
-          "rules": [
-          ]
-        },
-        "M1051": {
-          "description": "For the Outlook methods, blocking macros may be ineffective as the Visual Basic engine used for these features is separate from the macro scripting engine. Microsoft has released patches to try to address each issue. Ensure KB3191938 which blocks Outlook Visual Basic and displays a malicious code warning, KB4011091 which disables custom forms by default, and KB4011162 which removes the legacy Home Page feature, are applied to systems.",
-          "rules": [
           ]
         }
       }
@@ -69,6 +65,7 @@
     "T1137.01": {
       "mitigations": {
         "M1040": {
+          "partial": false,
           "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
           "rules": [
             1604,
@@ -77,6 +74,7 @@
           ]
         },
         "M1042": {
+          "partial": true,
           "description": "Follow Office macro security best practices suitable for your environment. Disable Office VBA macros from executing.\n\nDisable Office add-ins. If they are required, follow best practices for securing them by requiring them to be signed and disabling user notification for allowing add-ins. For some add-ins types (WLL, VBA) additional mitigation is likely required as disabling add-ins in the Office Trust Center does not disable WLL nor does it prevent VBA code from executing.",
           "rules": [
             1606
@@ -87,50 +85,38 @@
     "T1137.02": {
       "mitigations": {
         "M1040": {
+          "partial": false,
           "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
           "rules": [
             1604,
             1605,
             1612
           ]
-        },
-        "M1054": {
-          "description": "For the Office Test method, create the Registry key used to execute it and set the permissions to \"Read Control\" to prevent easy access to the key without administrator permissions or requiring Privilege Escalation.",
-          "rules": [
-          ]
         }
-      },
-      "T1137.03": {
-        "mitigations": {
-          "M1040": {
-            "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
-            "rules": [
-              1604,
-              1605,
-              1612
-            ]
-          },
-          "M1051": {
-            "description": "For the Outlook methods, blocking macros may be ineffective as the Visual Basic engine used for these features is separate from the macro scripting engine. Microsoft has released patches to try to address each issue. Ensure KB3191938 which blocks Outlook Visual Basic and displays a malicious code warning, KB4011091 which disables custom forms by default, and KB4011162 which removes the legacy Home Page feature, are applied to systems.",
-            "rules": [
-            ]
-          }
+      }
+    },
+    "T1137.03": {
+      "mitigations": {
+        "M1040": {
+          "partial": false,
+          "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
+          "rules": [
+            1604,
+            1605,
+            1612
+          ]
         }
       }
     },
     "T1137.04": {
       "mitigations": {
         "M1040": {
+          "partial": false,
           "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
           "rules": [
             1604,
             1605,
             1612
-          ]
-        },
-        "M1051": {
-          "description": "For the Outlook methods, blocking macros may be ineffective as the Visual Basic engine used for these features is separate from the macro scripting engine. Microsoft has released patches to try to address each issue. Ensure KB3191938 which blocks Outlook Visual Basic and displays a malicious code warning, KB4011091 which disables custom forms by default, and KB4011162 which removes the legacy Home Page feature, are applied to systems.",
-          "rules": [
           ]
         }
       }
@@ -138,16 +124,12 @@
     "T1137.05": {
       "mitigations": {
         "M1040": {
+          "partial": false,
           "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
           "rules": [
             1604,
             1605,
             1612
-          ]
-        },
-        "M1051": {
-          "description": "For the Outlook methods, blocking macros may be ineffective as the Visual Basic engine used for these features is separate from the macro scripting engine. Microsoft has released patches to try to address each issue. Ensure KB3191938 which blocks Outlook Visual Basic and displays a malicious code warning, KB4011091 which disables custom forms by default, and KB4011162 which removes the legacy Home Page feature, are applied to systems.",
-          "rules": [
           ]
         }
       }
@@ -155,6 +137,7 @@
     "T1137.06": {
       "mitigations": {
         "M1040": {
+          "partial": false,
           "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Office applications from creating child processes and from writing potentially malicious executable content to disk.",
           "rules": [
             1604,
@@ -164,9 +147,32 @@
         }
       }
     },
+    "T1557.001": {
+      "mitigations": {
+        "M1042": {
+          "partial": true,
+          "description": "Disable LLMNR and NetBIOS in local computer security settings or by group policy if they are not needed within an environment.",
+          "rules": [
+            4432,
+            4453
+          ]
+        },
+        "M1037": {
+          "partial": true,
+          "description": "Use host-based security software to block LLMNR/NetBIOS traffic. Enabling SMB Signing can stop NTLMv2 relay attacks.",
+          "rules": [
+            4613,
+            4614,
+            4617,
+            4618
+          ]
+        }
+      }
+    },
     "T1566": {
       "mitigations": {
         "M1049": {
+          "partial": true,
           "description": "Anti-virus can automatically quarantine suspicious files.",
           "rules": [
             4312
