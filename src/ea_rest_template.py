@@ -15,8 +15,7 @@ def ea_rest_call(endpoint: str, methodtype: str, token: str, params=None, data=N
 
     response = requests.request(methodtype, url, headers=headers, params=params, data=json.dumps(data))
 
-    if response.status_code != 200:
-        response.raise_for_status()
+    response.raise_for_status()
 
     data = response.json()
     return data

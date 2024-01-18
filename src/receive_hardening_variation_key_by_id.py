@@ -4,7 +4,7 @@ from src.ea_rest_template import ea_rest_call
 # main function
 def get_hardening_variation_key_by_id(token: str, server_id: str) -> str:
     if not server_id:
-        return ''
+        raise Exception("Error while retrieving hardening variation key by ID. The system id has not been passed, make sure it is passed correctly.")
 
     try:
         dsc_server_id = get_dsc_server_id(token, server_id)

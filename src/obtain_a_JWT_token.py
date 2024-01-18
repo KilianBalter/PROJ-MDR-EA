@@ -19,7 +19,6 @@ def get_jwt_token(username: str, password: str):
     # Make the POST request
     response = requests.post(url, headers=headers, data=json.dumps(data))
 
-    if response.status_code != 200:
-        response.raise_for_status()
+    response.raise_for_status()
 
     return response.json().get('token')
