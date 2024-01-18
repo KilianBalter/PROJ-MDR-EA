@@ -25,6 +25,7 @@ def handle_data(event):
                 # Mitigations for which all mapped rules are (not) present on the system
                 # including descriptions for each mitigation and rule
                 "satisfied_mitigations": {},
+                "partial_mitigations": {},
                 "unsatisfied_mitigations": {},
 
                 # Estimated vulnerability of the system
@@ -50,6 +51,7 @@ def handle_data(event):
         # Initialize variables
         token = None
         satisfied_mitigations = None
+        partial_mitigations = None
         unsatisfied_mitigations = None
         error_message = None
 
@@ -76,8 +78,8 @@ def handle_data(event):
         hardening_id = get_hardening_id(token, variation_key)
         rules = get_rule_ids(token, hardening_id)
 
-        # Check mapping for which mitigations are (un)satisfied
-        satisfied_mitigations, unsatisfied_mitigations = check_mapping(mitigations, rules)
+        # Check mapping for which mitigations are (not/partially) satisfied
+        satisfied_mitigations, partial_mitigations, unsatisfied_mitigations = check_mapping(mitigations, rules)
 
     # Catch any exception and save its message to include in the output event
     except Exception as e:
@@ -85,6 +87,7 @@ def handle_data(event):
             error_message = e.args[0]
 
     # Update event with gathered information
-    update_mitigation_status(event, token, satisfied_mitigations, unsatisfied_mitigations, error_message)
+    update_mitigation_status(event, token, satisfied_mitigations, partial_mitigations, unsatisfied_mitigations,
+                             error_message)
 
     return event

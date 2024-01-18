@@ -21,25 +21,79 @@ class TestCheckMapping(unittest.TestCase):
             4275, 4276, 4277, 4278, 4279, 4280, 4281,
         ]
 
+        # -------------------------------------------
+        # | Partial | Rules present | Result        |
+        # |  False  |      ALL      |  SATISFIED    |
+        # |  False  |      SOME     |  PARTIAL      |
+        # |  False  |      NONE     |  UNSATISFIED  |
+        # |  True   |      ALL      |  PARTIAL      |
+        # |  True   |      SOME     |  PARTIAL      |
+        # |  True   |      NONE     |  UNSATISFIED  |
+        # -------------------------------------------
         mitigations = {
-                "M1040": {
-                    "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Visual" +
-                    " Basic and JavaScript scripts from executing potentially malicious downloaded content.",
-                    "rules": [
-                        1608
-                    ]
-                }
+            # Partial False, ALL rules present
+            "M1040": {
+                "partial": False,
+                "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Visual" +
+                " Basic and JavaScript scripts from executing potentially malicious downloaded content.",
+                "rules": [
+                    1608
+                ]
+            },
+            # Partial False, SOME rules present
+            "M1041": {
+                "partial": False,
+                "description": "Test",
+                "rules": [
+                    1608,
+                    4822
+                ]
+            },
+            # Partial False, NO rules present
+            "M1042": {
+                "partial": False,
+                "description": "Test",
+                "rules": [
+                    11,
+                    12
+                ]
+            },
+            # Partial True, ALL rules present
+            "M1043": {
+                "partial": True,
+                "description": "Test",
+                "rules": [
+                    82,
+                    83
+                ]
+            },
+            # Partial True, SOME rules present
+            "M1044": {
+                "partial": True,
+                "description": "Test",
+                "rules": [
+                    44,
+                    82
+                ]
+            },
+            # Partial True, NO rules present
+            "M1045": {
+                "partial": True,
+                "description": "Test",
+                "rules": [
+                    10,
+                    20
+                ]
+            }
         }
 
-        satisfied_mitigations, unsatisfied_mitigations = check_mapping(mitigations, rule_ids)
-        self.assertEqual(['M1040'], list(satisfied_mitigations.keys()), "Mitigations not correctly detected")
-        self.assertEqual([], list(unsatisfied_mitigations.keys()), "Mitigations not correctly detected")
-
-        rule_ids = [5, 10, 20]
-
-        satisfied_mitigations, unsatisfied_mitigations = check_mapping(mitigations, rule_ids)
-        self.assertEqual([], list(satisfied_mitigations.keys()), "Mitigations not correctly detected")
-        self.assertEqual(['M1040'], list(unsatisfied_mitigations.keys()), "Mitigations not correctly detected")
+        satisfied_mitigations, partial_mitigations, unsatisfied_mitigations = check_mapping(mitigations, rule_ids)
+        self.assertEqual(['M1040'], list(satisfied_mitigations.keys()),
+                         "Mitigations not correctly detected")
+        self.assertEqual(['M1041', 'M1043', 'M1044'], list(partial_mitigations.keys()),
+                         "Mitigations not correctly detected")
+        self.assertEqual(['M1042', 'M1045'], list(unsatisfied_mitigations.keys()),
+                         "Mitigations not correctly detected")
 
 
 if __name__ == '__main__':
