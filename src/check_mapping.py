@@ -46,4 +46,7 @@ def check_mapping(mitigations, rule_ids):
             # Add mitigation to dict
             unsatisfied_mitigations[mitigation_id] = mitigations[mitigation_id]
 
+    if not satisfied_mitigations and not partial_mitigations and not unsatisfied_mitigations:
+        raise ValueError("No mitigations found in the mapping.")
+
     return satisfied_mitigations, partial_mitigations, unsatisfied_mitigations
