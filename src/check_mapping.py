@@ -20,7 +20,7 @@ def check_mapping(mitigations, rule_ids):
 
         # ALL rules in mitigation are present
         if all(_id in rule_ids for _id in rules):
-            # Add mitigation to list (partial_mitigations if it is tagged partial)
+            # Add mitigation to dict (partial_mitigations if it is tagged partial)
             if partial:
                 partial_mitigations[mitigation_id] = mitigations[mitigation_id]
             else:
@@ -32,7 +32,7 @@ def check_mapping(mitigations, rule_ids):
             rules_present = [_id in rule_ids for _id in rules]
             rules_not_present = [_id not in rule_ids for _id in rules]
 
-            # Add mitigation to list
+            # Add mitigation to dict
             partial_mitigations[mitigation_id] = mitigations[mitigation_id]
 
             # Update 'rules' field with separated lists
@@ -43,7 +43,7 @@ def check_mapping(mitigations, rule_ids):
 
         # NO rule in mitigation is present
         else:
-            # Add mitigation to list
+            # Add mitigation to dict
             unsatisfied_mitigations[mitigation_id] = mitigations[mitigation_id]
 
     return satisfied_mitigations, partial_mitigations, unsatisfied_mitigations
