@@ -78,7 +78,7 @@ def handle_data(event):
         hardening_id = get_hardening_id(token, variation_key)
         rules = get_rule_ids(token, hardening_id)
 
-        # Check mapping for which mitigations are (un)satisfied
+        # Check mapping for which mitigations are (not/partially) satisfied
         satisfied_mitigations, partial_mitigations, unsatisfied_mitigations = check_mapping(mitigations, rules)
 
     # Catch any exception and save its message to include in the output event
