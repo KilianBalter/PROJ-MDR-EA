@@ -34,7 +34,7 @@ def update_mitigation_status(event, token=None, satisfied_mitigations=None, unsa
         if error_message is not None:
             event["hardening_info"]['error_message'] = error_message
     except Exception:
-        raise Exception("error occurred while updating the mitigation status")
+        raise Exception("Error while updating the mitigation status. Input information might be missing, check the parameter inputs.")
 
 
 def add_rule_titles(mitigations, token):
@@ -56,4 +56,4 @@ def add_rule_titles(mitigations, token):
                 "rules": updated_rules
             })
     except Exception:
-        raise Exception("error in add_rule-titles")
+        raise Exception("Error while adding rule titles. Make sure microservice BenchmarkEngine is running.")

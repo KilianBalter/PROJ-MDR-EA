@@ -17,7 +17,7 @@ def receive_instance_name(code_template: str) -> str | list[str]:
         x_reg_str = ''.join(x_reg)
         return find_all_instance_names(x_reg_str)
     except Exception:
-        raise Exception("error in receive_instance_name")
+        raise Exception("Error in receiving instance name. The code_template might have changed, analysis of code is required.")
 
 
 def find_all_instance_names(text: str) -> list[str]:
@@ -28,4 +28,4 @@ def find_all_instance_names(text: str) -> list[str]:
     try:
         return [match.group() for match in re.finditer(pattern, text)]
     except Exception:
-        raise Exception("error in find_all_instance_names")
+        raise Exception("Error in finding instance names within regex text. Make sure the injected string has been extracted correctly, analysis of code is required.")

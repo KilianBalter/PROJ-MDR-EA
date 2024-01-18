@@ -39,5 +39,5 @@ def get_rule_ids(token, hardening_id) -> list[int]:
         # Filter out excluded rules
         rule_ids = [rule_id for rule_id in all_rule_ids if rule_id not in excluded_rule_ids]
     except Exception:
-        raise Exception("error in get_rule_ids")
+        raise Exception("Error while retrieving IDs of all rules. Make sure the microservice HardeningEngine is running.")
     return rule_ids

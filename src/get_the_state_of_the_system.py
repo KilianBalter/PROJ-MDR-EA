@@ -15,5 +15,5 @@ def get_the_state(token: str, server_id: str) -> str:
         # extract state_information and change the JSON-string to a python-dictionary
         state_information = json.loads(response2[0]['stateDetails'])
     except Exception:
-        raise Exception("error in get_the_state")
+        raise Exception("Error while retrieving the state of the system. Make sure the ID of the system exists and hardening has been applied, microservices dTools and dTools.jobProcessing are running.")
     return state_information['InState']
