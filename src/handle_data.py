@@ -1,7 +1,6 @@
 import json
 import requests
 import logging
-import re
 
 from src.my_credentials import get_credentials
 
