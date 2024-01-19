@@ -1,23 +1,24 @@
+import json
 import unittest
 
 from src.my_credentials import get_credentials
 from src.handle_data import get_jwt_token
-from src.handle_data import get_hardening_variation_key_by_id
+from src.handle_data import get_rule_by_instance_name
 
 
-class TestHardeningVariationKey(unittest.TestCase):
-
+class TestGetRuleByID(unittest.TestCase):
     def setUp(self):
+        self.credentials = get_credentials()
         print("\nStarting Unittest.\n")
 
     def tearDown(self):
         print("\nEnding Unittest\n")
 
-    def test_get_hardening_variation_key_by_id(self):
+    def test_get_rule_by_id(self):
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
-        key = get_hardening_variation_key_by_id(token, '1')
-        self.assertEqual(key, "W11_Essential___1_0", "Variation Key Extraction not working!")
+        rule = get_rule_by_instance_name(token, '8081C25334A33DC8F2389B7F')
+        self.assertEqual(55, json.loads(rule)['id'], "Rule not extracted correctly")
 
 
 if __name__ == '__main__':

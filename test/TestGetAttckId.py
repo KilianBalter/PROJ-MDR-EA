@@ -1,10 +1,11 @@
 import unittest
 import json
 
-from src.handle_data import get_mdr_sys_name
+
+from src.handle_data import get_attack_id
 
 
-class TestExtractMDRName(unittest.TestCase):
+class TestExtractAttackId(unittest.TestCase):
 
     def setUp(self):
         with open("../assets/Example MDR Events/MDR_Event_1.json") as self.json_file_1, \
@@ -22,13 +23,13 @@ class TestExtractMDRName(unittest.TestCase):
         self.json_file_3.close()
         self.json_file_4.close()
 
-    def test_mdr_get_sys_name(self):
-        self.assertEqual("ubuntu-share01", get_mdr_sys_name(self.data_1), "MDR_Event_1")
-        self.assertEqual("ubuntu-share01", get_mdr_sys_name(self.data_2), "MDR_Event_2")
-        self.assertEqual("ubuntu-share01", get_mdr_sys_name(self.data_3), "MDR_Event_3")
-        self.assertEqual("ubuntu-share01", get_mdr_sys_name(self.data_4), "MDR_Event_4")
+    def test_extract_attack_id(self):
+        self.assertEqual("T1018", get_attack_id(self.data_1), "MDR_Event_1")
+        self.assertEqual("T1552.003", get_attack_id(self.data_2), "MDR_Event_2")
+        self.assertEqual("T1057", get_attack_id(self.data_3), "MDR_Event_3")
+        self.assertEqual("T1548.001", get_attack_id(self.data_4), "MDR_Event_4")
 
-        self.assertNotEquals("ubuntu-share0", get_mdr_sys_name(self.data_1), "MDR_Event_1_2")
+        self.assertNotEqual("T1019", get_attack_id(self.data_1), "MDR_Event_1")
 
 
 if __name__ == '__main__':

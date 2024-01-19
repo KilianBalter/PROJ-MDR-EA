@@ -71,12 +71,12 @@
             "action": {
               "details": {
                 "technique": {
-                  "id": "T1059.007",
-                  "name": "Command and Scripting Interpreter: JavaScript"
+                  "id": "T1557.001",
+                  "name": "LLMNR/NBT-NS Poisoning and SMB Relay"
                 },
                 "tactic": {
-                  "id": "TA0002",
-                  "name": "Execution"
+                  "id": "TA0006",
+                  "name": "Credential Access"
                 }
               }
             },

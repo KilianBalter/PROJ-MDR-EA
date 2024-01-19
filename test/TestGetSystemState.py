@@ -1,11 +1,10 @@
 import unittest
-
 from src.my_credentials import get_credentials
 from src.handle_data import get_jwt_token
-from src.handle_data import get_hardening_variation_key_by_id
+from src.handle_data import get_the_state
 
 
-class TestHardeningVariationKey(unittest.TestCase):
+class TestGetSystemState(unittest.TestCase):
 
     def setUp(self):
         print("\nStarting Unittest.\n")
@@ -16,8 +15,8 @@ class TestHardeningVariationKey(unittest.TestCase):
     def test_get_hardening_variation_key_by_id(self):
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
-        key = get_hardening_variation_key_by_id(token, '1')
-        self.assertEqual(key, "W11_Essential___1_0", "Variation Key Extraction not working!")
+        status = get_the_state(token, '1')
+        self.assertEqual(status, True, "State extraction Not working")
 
 
 if __name__ == '__main__':
