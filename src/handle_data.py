@@ -60,7 +60,8 @@ def handle_data(event):
         token = get_jwt_token(credentials['username'], credentials['password'])
 
         # Add all mitigations as unsatisfied by default in case an error is encountered during processing
-        update_mitigation_status(event, token=token, unsatisfied_mitigations=mitigations)
+        satisfied_mitigations, partial_mitigations, unsatisfied_mitigations = check_mapping(mitigations, [])
+        update_mitigation_status(event, token=token, unsatisfied_mitigations=unsatisfied_mitigations)
 
         # Get EA system ID for this system
         mdr_name = get_mdr_sys_name(event)
