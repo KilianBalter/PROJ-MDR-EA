@@ -36,6 +36,13 @@ def handle_data(event):
             }
         })
 
+    # Initialize variables
+    token = None
+    satisfied_mitigations = None
+    partial_mitigations = None
+    unsatisfied_mitigations = None
+    error_message = None
+
     try:
         # Check if technique has been mapped and get mitigations
         attack_id = get_attack_id(event)
@@ -48,13 +55,6 @@ def handle_data(event):
             mitigations = mapping['techniques'][f'{attack_id}']['mitigations']
 
         # EA
-        # Initialize variables
-        token = None
-        satisfied_mitigations = None
-        partial_mitigations = None
-        unsatisfied_mitigations = None
-        error_message = None
-
         # Credentials
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
