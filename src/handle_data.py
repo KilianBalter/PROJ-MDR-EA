@@ -3,7 +3,7 @@ import requests
 import logging
 import re
 
-from my_credentials import get_credentials
+from src.my_credentials import get_credentials
 
 
 # vvvvvvvvvvvvvvvv UNUSED vvvvvvvvvvvvvvvv
@@ -206,7 +206,7 @@ def get_hardening_id(token, variation_key):
 
     # Get hardening ID from corresponding template
     try:
-        conf_template = ea_rest_call(f"/api/dtools/DscApplicationConfigTemplate/{template_id}", 'GET', token)
+        conf_template = get_hardening_configuration_template_by_id(token, template_id)
     except Exception:
         raise Exception(
             "Error while retrieving hardening configuration template by ID. Make sure microservice dTools is running and ID of configuration template exists.")
@@ -215,6 +215,14 @@ def get_hardening_id(token, variation_key):
     hardening_id = data_template['hardeningId']
 
     return hardening_id
+
+
+def get_hardening_configuration_template_by_id(token, template_id):
+    try:
+        return ea_rest_call(f"/api/dtools/DscApplicationConfigTemplate/{template_id}", 'GET', token)
+    except Exception:
+        raise Exception(
+            "Error while retrieving hardening configuration template by ID. Make sure microservice dTools is running and ID of configuration template exists.")
 
 
 # Retrieves list of IDs of all rules contained in a Hardening
@@ -264,15 +272,15 @@ def get_the_state(token: str, server_id: str) -> str:
         if not server_id:
             return ''
         # extract dscServerId
-        response = ea_rest_call(f'/api/dtools/DscServer/{server_id}', 'GET', token)
-        dsc_server_id = response["serverId"]
+        resp = ea_rest_call(f'/api/dtools/DscServer/{server_id}', 'GET', token)
+        dsc_server_id = resp["serverId"]
         # use dscServerId to get the ApplicationStatus
-        response2 = ea_rest_call(f'/api/jobProcessing/DscServerApplicationStatus/dscserver/{dsc_server_id}', 'GET', token)
+        resp2 = ea_rest_call(f'/api/jobProcessing/DscServerApplicationStatus/dscserver/{dsc_server_id}', 'GET', token)
         # in case response is empty
-        if not response2:
+        if not resp2:
             raise Exception("Error while retrieving the state of the system. State of system is empty. Make sure the hardening has been applied and not just assigned.")
         # extract state_information and change the JSON-string to a python-dictionary
-        state_information = json.loads(response2[0]['stateDetails'])
+        state_information = json.loads(resp2[0]['stateDetails'])
     except Exception:
         raise Exception("Error while retrieving the state of the system. Make sure the ID of the system exists and hardening has been applied, microservices dTools and dTools.jobProcessing are running.")
     return state_information['InState']
