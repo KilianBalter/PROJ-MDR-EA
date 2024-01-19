@@ -2,8 +2,8 @@ import json
 import unittest
 
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
-from src.get_rule_by_id import get_rule_by_instance_name
+from src.handle_data import get_jwt_token
+from src.handle_data import get_rule_by_instance_name
 
 
 class TestGetRuleByID(unittest.TestCase):

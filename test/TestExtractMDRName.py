@@ -1,7 +1,7 @@
 import unittest
 import json
 
-from src.get_mdr_name_from_event import get_mdr_sys_name
+from src.handle_data import get_mdr_sys_name
 
 
 class TestExtractMDRName(unittest.TestCase):

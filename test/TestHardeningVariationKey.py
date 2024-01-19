@@ -1,8 +1,8 @@
 import unittest
 
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
-from src.receive_hardening_variation_key_by_id import get_hardening_variation_key_by_id
+from src.handle_data import get_jwt_token
+from src.handle_data import get_hardening_variation_key_by_id
 
 
 class TestHardeningVariationKey(unittest.TestCase):

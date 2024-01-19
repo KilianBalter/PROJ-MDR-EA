@@ -1,7 +1,7 @@
 import unittest
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
-from src.get_the_state_of_the_system import get_the_state
+from src.handle_data import get_jwt_token
+from src.handle_data import get_the_state
 
 
 class TestGetSystemState(unittest.TestCase):

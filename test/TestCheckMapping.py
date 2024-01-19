@@ -1,6 +1,6 @@
 import unittest
 
-from src.check_mapping import check_mapping
+from src.handle_data import check_mapping
 
 
 class TestCheckMapping(unittest.TestCase):

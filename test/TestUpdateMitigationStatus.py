@@ -2,8 +2,8 @@ import unittest
 import json
 
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
-from src.update_mitigation_status import update_mitigation_status
+from src.handle_data import get_jwt_token
+from src.handle_data import update_mitigation_status
 
 
 class TestAddMitigationStatus(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
-import src.obtain_a_JWT_token as tokenReceive
+from src.handle_data import get_jwt_token
 from src.my_credentials import get_credentials
-from src.receive_hardening_configuration_by_id import get_hardening_configuration_template_by_id
+from src.handle_data import get_hardening_configuration_template_by_id
 
 
 class TestHardeningConfiguration(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestHardeningConfiguration(unittest.TestCase):
 
     def test_receive_hardening_configuration(self):
         credentials = get_credentials()
-        token = tokenReceive.get_jwt_token(credentials['username'], credentials['password'])
+        token = get_jwt_token(credentials['username'], credentials['password'])
         information = get_hardening_configuration_template_by_id(token, "2")
         self.assertIsNotNone(information,"Information retrieve failed!")
 

@@ -1,6 +1,6 @@
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
-from src.get_hardening_id import get_hardening_id
+from src.handle_data import get_jwt_token
+from src.handle_data import get_hardening_id
 
 import unittest
 

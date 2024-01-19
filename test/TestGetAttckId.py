@@ -2,7 +2,7 @@ import unittest
 import json
 
 
-from src.get_attack_id_from_event import get_attack_id
+from src.handle_data import get_attack_id
 
 
 class TestExtractAttackId(unittest.TestCase):
