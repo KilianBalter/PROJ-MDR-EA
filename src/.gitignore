@@ -1,4 +1,3 @@
-#gitignore for Matthias
 __pycache__/
 my_credentials.py
 *.ipynb
