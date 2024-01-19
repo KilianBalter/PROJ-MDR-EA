@@ -16,35 +16,34 @@ def check_mapping(mitigations, rule_ids):
 
     for mitigation_id in mitigations:
         partial = mitigations[mitigation_id]['partial']
-        rules = mitigations[mitigation_id]['rules']
+        mapped_rules = mitigations[mitigation_id]['rules']
+
+        # Sort rules into present and not present
+        rules_present = [_id for _id in mapped_rules if _id in rule_ids]
+        rules_not_present = [_id for _id in mapped_rules if _id not in rule_ids]
+
+        # Update mitigation with that information
+        updated_mitigation = mitigations[mitigation_id].copy()
+        updated_mitigation['rules'] = {
+            'present': rules_present,
+            'not_present': rules_not_present
+        }
 
         # ALL rules in mitigation are present
-        if all(_id in rule_ids for _id in rules):
-            # Add mitigation to dict (partial_mitigations if it is tagged partial)
-            if partial:
-                partial_mitigations[mitigation_id] = mitigations[mitigation_id]
+        if rules_present and not rules_not_present:
+            if not partial:
+                satisfied_mitigations[mitigation_id] = updated_mitigation
             else:
-                satisfied_mitigations[mitigation_id] = mitigations[mitigation_id]
-
-        # ANY rule in mitigation is present
-        elif any(_id in rule_ids for _id in rules):
-            # Separate rules that are present/not present
-            rules_present = [_id in rule_ids for _id in rules]
-            rules_not_present = [_id not in rule_ids for _id in rules]
-
-            # Add mitigation to dict
-            partial_mitigations[mitigation_id] = mitigations[mitigation_id]
-
-            # Update 'rules' field with separated lists
-            partial_mitigations[mitigation_id]['rules'] = {
-                "present": rules_present,
-                "not_present": rules_not_present
-            }
-
-        # NO rule in mitigation is present
+                partial_mitigations[mitigation_id] = updated_mitigation
+        # SOME rules in mitigation are present
+        elif rules_present and rules_not_present:
+            partial_mitigations[mitigation_id] = updated_mitigation
+        # NO rules in mitigation are present
+        elif not rules_present and rules_not_present:
+            unsatisfied_mitigations[mitigation_id] = updated_mitigation
+        # There are no rule present or not present, meaning no rules were mapped to the mitigation at all
         else:
-            # Add mitigation to dict
-            unsatisfied_mitigations[mitigation_id] = mitigations[mitigation_id]
+            raise Exception(f'No rule(s) mapped for mitigation {mitigation_id}')
 
     if not satisfied_mitigations and not partial_mitigations and not unsatisfied_mitigations:
         raise ValueError("No mitigations found in the mapping.")
