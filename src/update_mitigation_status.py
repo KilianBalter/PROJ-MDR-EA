@@ -19,10 +19,11 @@ def update_mitigation_status(event, token=None, satisfied_mitigations=None, part
         # If EA reachable, get rule titles and add them as additional info
         if token:
             try:
-                add_rule_titles(satisfied_mitigations, False, token)
-                add_rule_titles(partial_mitigations, True, token)
-                add_rule_titles(unsatisfied_mitigations, False, token)
-            # Titles serve only as additional information. If anything goes wrong due to EA, ignore and just update fields
+                add_rule_titles(satisfied_mitigations, token)
+                add_rule_titles(partial_mitigations, token)
+                add_rule_titles(unsatisfied_mitigations, token)
+            # Titles serve only as additional information.
+            # If anything goes wrong due to EA, ignore and just update fields
             except Exception:
                 pass
 
@@ -53,28 +54,26 @@ def update_mitigation_status(event, token=None, satisfied_mitigations=None, part
         raise Exception("Error while updating the mitigation status. Input information might be missing, check the parameter inputs.")
 
 
-def add_rule_titles(mitigations, partial, token):
+def add_rule_titles(mitigations, token):
     try:
         if not mitigations:
             return
 
-        if partial:
-            updated_rules = {
-                'present': {},
-                'not_present': {}
-            }
-            for mitigation in mitigations:
-                for rule in mitigations[mitigation]['rules']['present']:
-                    updated_rules['present'][rule] = {'title': get_rule_title(rule, token)}
-                for rule in mitigations[mitigation]['rules']['not_present']:
-                    updated_rules['not_present'][rule] = {'title': get_rule_title(rule, token)}
-                mitigations[mitigation]['rules'] = updated_rules
-        else:
-            updated_rules = {}
-            for mitigation in mitigations:
-                for rule in mitigations[mitigation]['rules']:
-                    updated_rules[rule] = {'title': get_rule_title(rule, token)}
-                mitigations[mitigation]['rules'] = updated_rules
+        # Make new dict for rules, because each rule is now a key instead of an array value
+        updated_rules = {
+            'present': {},
+            'not_present': {}
+        }
+
+        # Add each rule with its title
+        for mitigation in mitigations:
+            for rule in mitigations[mitigation]['rules']['present']:
+                updated_rules['present'][rule] = {'title': get_rule_title(rule, token)}
+            for rule in mitigations[mitigation]['rules']['not_present']:
+                updated_rules['not_present'][rule] = {'title': get_rule_title(rule, token)}
+
+            # Update mitigation with new rules dict
+            mitigations[mitigation]['rules'] = updated_rules
     except Exception:
         raise Exception("Error while adding rule titles. Make sure microservice BenchmarkEngine is running.")
 
