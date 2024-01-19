@@ -6,59 +6,6 @@ import re
 from src.my_credentials import get_credentials
 
 
-# vvvvvvvvvvvvvvvv UNUSED vvvvvvvvvvvvvvvv
-def get_rule_by_instance_name(token, instance_name):
-    try:
-        if isinstance(instance_name, list):
-            data = {'instanceNames': instance_name}
-        else:
-            data = {'instanceNames': [instance_name]}
-        response = ea_rest_call(f'/api/v3/hardeningengine/HardeningDsc/instanceRules', 'POST', token, None, data)
-        for i in range(len(response['resolvedRules'])):
-            return get_rule_by_rule_id(token, json.dumps(response['resolvedRules'][i]['includedBy'][0]['ruleId']))
-    except Exception:
-        raise Exception("Error while retrieving rule by instance name. Make sure rule and instance name are accessible and microservice HardeningEngine is running.")
-
-
-def get_rule_by_rule_id(token: str, rule_id: str):
-    try:
-        response = ea_rest_call(f'/api/v3/benchmarkengine/Rules/' + rule_id, 'GET', token, None)
-    except Exception:
-        raise Exception("Error while retrieving rule by rule id. Make sure the rule id is correct and microservice BenchmarkEngine is running.")
-    return json.dumps(response['settings'][0])
-
-
-def receive_instance_name(code_template: str) -> str | list[str]:
-    """
-    this function receives the code_template and filters it for all xRegistry instance_names
-    :param code_template:
-    :return: empty String if there is no code_template, list of instance_names in the code_template otherwise
-    """
-    try:
-        if not code_template:
-            return ''
-        lines = code_template.splitlines()
-        # filtering the lines to only work with the lines that contain xRegistry
-        x_reg = [x for x in lines if "xRegistry" in x]
-        # converting the array into a single string so that
-        x_reg_str = ''.join(x_reg)
-        return find_all_instance_names(x_reg_str)
-    except Exception:
-        raise Exception("Error in receiving instance name. The code_template might have changed, analysis of code is required.")
-
-
-def find_all_instance_names(text: str) -> list[str]:
-    """
-    this function filters a String for every instance name with a RegEx
-    """
-    pattern = r'[A-Z0-9]{23,24}'
-    try:
-        return [match.group() for match in re.finditer(pattern, text)]
-    except Exception:
-        raise Exception("Error in finding instance names within regex text. Make sure the injected string has been extracted correctly, analysis of code is required.")
-# ^^^^^^^^^^^^^^^^ UNUSED ^^^^^^^^^^^^^^^^
-
-
 def get_jwt_token(username: str, password: str):
     url = "http://win-jtn7m3lf4bq.theagleenforce.local:5000/api/logon/LoginForms"
 
