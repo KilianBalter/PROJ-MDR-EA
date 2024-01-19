@@ -132,7 +132,6 @@ def get_all_systems(token: str):
 
 
 def get_ea_system_id_from_list_of_systems(server_list, mdr_name: str) -> str:
-    # Check if either server_list or mdr_name is None or '', and return '' if true
     if not server_list:
         raise ValueError("EA server list is empty")
     if not mdr_name:
