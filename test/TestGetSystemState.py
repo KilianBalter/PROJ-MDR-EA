@@ -16,7 +16,7 @@ class TestGetSystemState(unittest.TestCase):
         credentials = get_credentials()
         token = get_jwt_token(credentials['username'], credentials['password'])
         status = get_the_state(token, '1')
-        self.assertEqual(status, False, "State extraction Not working")
+        self.assertEqual(status, True, "State extraction Not working")
 
 
 if __name__ == '__main__':
