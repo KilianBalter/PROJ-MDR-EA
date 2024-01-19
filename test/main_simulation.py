@@ -18,9 +18,9 @@ if __name__ == "__main__":
                 part_mitigations = modified_event['hardening_info']['partial_mitigations']
                 unsat_mitigations = modified_event['hardening_info']['unsatisfied_mitigations']
                 error_message = modified_event['hardening_info']['error_message']
-                print(f"Following mitigations are present: {sat_mitigations}\n")
-                print(f"Following partial mitigations are present: {part_mitigations}\n")
-                print(f"Following mitigations are not present: {unsat_mitigations}\n")
+                print(f"Following mitigations are present: \n{json.dumps(sat_mitigations, indent=2)}\n")
+                print(f"Following partial mitigations are present: \n{json.dumps(part_mitigations, indent=2)}\n")
+                print(f"Following mitigations are not present: \n{json.dumps(unsat_mitigations, indent=2)}\n")
                 print(f"Error message: {error_message}\n")
                 print("\n\n")
     except json.decoder.JSONDecodeError:
