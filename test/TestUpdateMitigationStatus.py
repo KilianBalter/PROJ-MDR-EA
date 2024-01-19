@@ -45,9 +45,12 @@ class TestAddMitigationStatus(unittest.TestCase):
                 "M1040": {
                     "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Visual Basic and JavaScript scripts from executing potentially malicious downloaded content.",
                     "rules": {
-                        1608: {
-                            "title": "(L1) Ensure 'Configure Attack Surface Reduction rules: Block JavaScript or VBScript from launching downloaded executable content'"
-                        }
+                        'present': {
+                            1608: {
+                                "title": "(L1) Ensure 'Configure Attack Surface Reduction rules: Block JavaScript or VBScript from launching downloaded executable content'"
+                            }
+                        },
+                        'not_present': {}
                     }
                 }
             },
@@ -76,7 +79,10 @@ class TestAddMitigationStatus(unittest.TestCase):
         satisfied_mitigations = {
             'M1040': {
                 "description": "On Windows 10, enable Attack Surface Reduction (ASR) rules to prevent Visual Basic and JavaScript scripts from executing potentially malicious downloaded content.",
-                'rules': [1608]
+                'rules': {
+                    'present': [1608],
+                    'not_present': []
+                }
             }
         }
         partial_mitigations = {
@@ -93,7 +99,8 @@ class TestAddMitigationStatus(unittest.TestCase):
         update_mitigation_status(self.data_1, token, satisfied_mitigations, partial_mitigations, unsatisfied_mitigations)
 
         rules = self.data_1['hardening_info']['satisfied_mitigations']['M1040']['rules']
-        self.assertTrue(all(rules[rule]['title'] for rule in rules), "Missing titles")
+        self.assertTrue(all(rules['present'][rule]['title'] for rule in rules['present']), "Missing titles")
+        self.assertTrue(all(rules['not_present'][rule]['title'] for rule in rules['not_present']), "Missing titles")
         self.assertEqual(hardening_info, self.data_1['hardening_info'], "Hardening info doesn't match")
 
 
