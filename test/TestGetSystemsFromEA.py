@@ -2,7 +2,7 @@ import unittest
 
 from src.my_credentials import get_credentials
 from src.obtain_a_JWT_token import get_jwt_token
-from src.receive_list_of_systems_from_ea import get_all_systems
+from src.ea_system_identification_functions import get_all_systems
 
 
 class TestGetSystemsFromEA(unittest.TestCase):
