@@ -1,5 +1,5 @@
 import unittest
-import src.obtain_a_JWT_token as tokenReceive
+import src.ea_login_functions as tokenReceive
 from src.my_credentials import get_credentials
 from src.receive_hardening_configuration_by_id import get_hardening_configuration_template_by_id
 

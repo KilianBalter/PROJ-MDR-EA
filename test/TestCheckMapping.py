@@ -1,6 +1,6 @@
 import unittest
 
-from src.check_mapping import check_mapping
+from src.update_mitigation_status import check_mapping
 
 
 class TestCheckMapping(unittest.TestCase):

@@ -1,8 +1,8 @@
 import unittest
 
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
-from src.get_rule_ids import get_rule_ids
+from src.ea_login_functions import get_jwt_token
+from src.ea_rules_access_functions import get_rule_ids
 
 
 class TestGetRuleIDs(unittest.TestCase):

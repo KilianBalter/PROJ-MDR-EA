@@ -1,6 +1,6 @@
 import unittest
 
-from src.extract_ea_system_id import get_ea_system_id_from_list_of_systems
+from src.ea_system_identification_functions import get_ea_system_id_from_list_of_systems
 
 
 class TestGetEASystemID(unittest.TestCase):

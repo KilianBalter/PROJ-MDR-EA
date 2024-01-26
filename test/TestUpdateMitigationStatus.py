@@ -2,7 +2,7 @@ import unittest
 import json
 
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
+from src.ea_login_functions import get_jwt_token
 from src.update_mitigation_status import update_mitigation_status
 
 
