@@ -9,7 +9,7 @@ from src.ea_system_identification_functions import get_ea_system_id_from_list_of
 from src.ea_rules_access_functions import get_hardening_variation_key_by_id
 from src.ea_rules_access_functions import get_hardening_id
 from src.ea_rules_access_functions import get_rule_ids
-from src.get_the_state_of_the_system import get_the_state
+from src.ea_system_prerequisites_functions import get_the_state
 from src.update_mitigation_status import check_mapping
 from src.update_mitigation_status import update_mitigation_status
 

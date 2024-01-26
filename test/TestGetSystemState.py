@@ -1,7 +1,7 @@
 import unittest
 from src.my_credentials import get_credentials
 from src.ea_login_functions import get_jwt_token
-from src.get_the_state_of_the_system import get_the_state
+from src.ea_system_prerequisites_functions import get_the_state
 
 
 class TestGetSystemState(unittest.TestCase):
