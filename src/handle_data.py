@@ -2,8 +2,8 @@ import json
 
 from src.my_credentials import get_credentials
 from src.obtain_a_JWT_token import get_jwt_token
-from src.get_mdr_name_from_event import get_mdr_sys_name
-from src.get_attack_id_from_event import get_attack_id
+from src.mdr_event_information_extraction_functions import get_mdr_sys_name
+from src.mdr_event_information_extraction_functions import get_attack_id
 from src.receive_list_of_systems_from_ea import get_all_systems
 from src.extract_ea_system_id import get_ea_system_id_from_list_of_systems
 from src.receive_hardening_variation_key_by_id import get_hardening_variation_key_by_id
