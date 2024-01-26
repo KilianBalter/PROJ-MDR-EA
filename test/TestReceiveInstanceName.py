@@ -1,7 +1,7 @@
 import unittest
 
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
+from src.ea_login_functions import get_jwt_token
 from src.receive_hardening_configuration_by_id import get_hardening_configuration_template_by_id
 from src.receive_the_instance_name import receive_instance_name
 

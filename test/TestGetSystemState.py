@@ -1,6 +1,6 @@
 import unittest
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
+from src.ea_login_functions import get_jwt_token
 from src.get_the_state_of_the_system import get_the_state
 
 

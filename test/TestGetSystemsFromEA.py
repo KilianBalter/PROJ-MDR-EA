@@ -1,7 +1,7 @@
 import unittest
 
 from src.my_credentials import get_credentials
-from src.obtain_a_JWT_token import get_jwt_token
+from src.ea_login_functions import get_jwt_token
 from src.ea_system_identification_functions import get_all_systems
 
 
